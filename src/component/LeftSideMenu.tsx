@@ -13,8 +13,8 @@ import type { MenuProps } from 'antd'; // Import MenuProps for typing
 const { Header, Sider, Content } = Layout;
 
 // Define the proportional widths using Viewport Width (vw) units
-const SIDER_EXPANDED_WIDTH = '11.11vw';
-const SIDER_COLLAPSED_WIDTH = '4vw';
+const SIDER_EXPANDED_WIDTH = '180px';
+const SIDER_COLLAPSED_WIDTH = '44px';
 const HEADER_HEIGHT = 64; // Standard Antd Header height
 
 // 1. Define the Menu Item Type
@@ -77,7 +77,7 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
 
   return (
     // Outer Layout Container
-    <Layout style={{ minHeight: '100vh',position:"absolute" }}>
+    <Layout>
       
       {/* 1. Sidebar (Sider) - Uses Proportional Widths and is Fixed */}
       <Sider 
@@ -88,13 +88,14 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
         width={SIDER_EXPANDED_WIDTH}
         collapsedWidth={SIDER_COLLAPSED_WIDTH}
         style={{
-          overflow: 'auto',
-          height: '100vh',
+          overflow: 'hidden',
+          height: '3000px',
           position: 'fixed', 
           left: 0, 
           top: 0, 
           bottom: 0,
           zIndex: 1000,
+          // width:100,
         }}
       >
         <div 

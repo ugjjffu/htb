@@ -1,52 +1,116 @@
-// --- 1. State Interface (The Data) ---
-export interface State { // Often useful to export the State type too
+import dayjs, { Dayjs } from 'dayjs'; // Import Dayjs type
+
+// --- TYPES & INTERFACES ---
+
+// Define the type for the 'City' string literal/enum if you have one, or just use string
+// type City = 'New York' | 'Paris' | 'London'; 
+type City = string; // Using string for flexibility if City type isn't provided
+export interface AppState {
+  // New States
+  selectedCity: City;
+  openCityOptions: boolean;
+  openCalendarOfCheckIn: boolean;
+  panelValueOfCheckIn: Dayjs;
+  openCalendarOfCheckOut: boolean;
+  panelValueOfCheckOut: Dayjs;
+  selectedCheckInValue: Dayjs | null;
+  selectedCheckOutValue: Dayjs | null;
+  rooms: number;
+  adults: number;
+  childrens: number;
+  // Existing States (from your original reducer)
   open: boolean;
   level: string;
-  search_box_open:boolean;
-  search_box_text:string;
+  search_box_open: boolean;
+  search_box_text: string;
+  stateOfLevelDropDown:boolean;
+  searchInput:string;
 }
-
-// --- 2. Action Interfaces (The Operations) ---
-// Define a union type for all possible actions
-export type Action = 
-  | { type: 'SET_OPEN'; payload: boolean }
-  | { type: 'SET_LEVEL'; payload: string }
-  | {type:  'SET_SEARCHBOX_OPEN',payload: boolean}
-  | {type:  'SET_SEARCHBOX_TEXT',payload: string};
-
-// --- 3. Initial State (CORRECTED: Exported) ---
-export const initialState: State = {
+export const initialState: AppState = {
+  // New States
+  selectedCity: 'New York', // Default city, matching your original useState
+  openCityOptions: false,
+  openCalendarOfCheckIn: false,
+  // Initializing with dayjs() ensures the state is of type Dayjs
+  panelValueOfCheckIn: dayjs(), 
+  openCalendarOfCheckOut: false,
+  // Initializing with dayjs() ensures the state is of type Dayjs
+  panelValueOfCheckOut: dayjs(), 
+  selectedCheckInValue: null, // Initializing to null for optional selection
+  selectedCheckOutValue: null, // Initializing to null for optional selection
+  rooms: 1, // Default value, matching your original useState
+  adults: 1, // Default value, matching your original useState
+  childrens: 0, // Default value, matching your original useState
+  stateOfLevelDropDown:false,
+  // Existing States
   open: false,
   level: '⭐', // Default level
   search_box_open: false,
   search_box_text: '',
+  searchInput: '',
 };
+// Define a union type for all possible actions
+export type AppAction =
+  // New Actions
+  | { type: 'SET_SELECTED_CITY'; payload: City }
+  | { type: 'SET_OPEN_CITY_OPTIONS'; payload: boolean }
+  | { type: 'SET_OPEN_CALENDAR_CHECKIN'; payload: boolean }
+  | { type: 'SET_PANEL_VALUE_CHECKIN'; payload: Dayjs }
+  | { type: 'SET_OPEN_CALENDAR_CHECKOUT'; payload: boolean }
+  | { type: 'SET_PANEL_VALUE_CHECKOUT'; payload: Dayjs }
+  | { type: 'SET_SELECTED_CHECKIN_VALUE'; payload: Dayjs | null }
+  | { type: 'SET_SELECTED_CHECKOUT_VALUE'; payload: Dayjs | null }
+  | { type: 'SET_ROOMS'; payload: number }
+  | { type: 'SET_ADULTS'; payload: number }
+  | { type: 'SET_CHILDRENS'; payload: number }
+  // Existing Actions
+  | { type: 'SET_OPEN'; payload: boolean }
+  | { type: 'SET_LEVEL'; payload: string }
+  | { type: 'SET_SEARCHBOX_OPEN'; payload: boolean }
+  | { type: 'SET_LEVELDROPDOWN_OPEN'; payload: boolean }
+  | { type: 'SET_SEARCH_INPUT'; payload: string }
+  | { type: 'SET_SEARCHBOX_TEXT'; payload: string };
 
-// --- 4. Reducer Function (Corrected Export) ---
-export function reducer(state: State, action: Action): State {
+  export function reducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
+    // --- New Cases ---
+    case 'SET_SELECTED_CITY':
+      return { ...state, selectedCity: action.payload };
+    case 'SET_OPEN_CITY_OPTIONS':
+      return { ...state, openCityOptions: action.payload };
+    case 'SET_OPEN_CALENDAR_CHECKIN':
+      return { ...state, openCalendarOfCheckIn: action.payload };
+    case 'SET_PANEL_VALUE_CHECKIN':
+      return { ...state, panelValueOfCheckIn: action.payload };
+    case 'SET_OPEN_CALENDAR_CHECKOUT':
+      return { ...state, openCalendarOfCheckOut: action.payload };
+    case 'SET_PANEL_VALUE_CHECKOUT':
+      return { ...state, panelValueOfCheckOut: action.payload };
+    case 'SET_SELECTED_CHECKIN_VALUE':
+      return { ...state, selectedCheckInValue: action.payload };
+    case 'SET_SELECTED_CHECKOUT_VALUE':
+      return { ...state, selectedCheckOutValue: action.payload };
+    case 'SET_ROOMS':
+      return { ...state, rooms: action.payload };
+    case 'SET_ADULTS':
+      return { ...state, adults: action.payload };
+    case 'SET_CHILDRENS':
+      return { ...state, childrens: action.payload };
+
+    // --- Existing Cases (Adapted for AppState) ---
     case 'SET_OPEN':
-      return {
-        ...state,
-        open: action.payload,
-      };
+      return { ...state, open: action.payload };
     case 'SET_LEVEL':
-      return {
-        ...state,
-        level: action.payload,
-      };
+      return { ...state, level: action.payload };
     case 'SET_SEARCHBOX_TEXT':
-      return {
-        ...state,
-        search_box_text: action.payload,
-      };
+      return { ...state, search_box_text: action.payload };
     case 'SET_SEARCHBOX_OPEN':
-      return {
-        ...state,
-        search_box_open: action.payload,
-      };
+      return { ...state, search_box_open: action.payload };
+    case 'SET_LEVELDROPDOWN_OPEN':
+      return { ...state, stateOfLevelDropDown: action.payload };
+    case 'SET_SEARCH_INPUT':
+      return { ...state, searchInput: action.payload };
     default:
-      // Always throw an error if an unknown action is dispatched
-      throw new Error(`Unhandled action type:`);
+      throw new Error(`Unhandled action type: ${(action as AppAction).type}`);
   }
 }
