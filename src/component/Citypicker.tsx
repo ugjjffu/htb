@@ -1,7 +1,7 @@
 import { Dropdown, InputNumber, Space } from 'antd';
 
 const TicketSelectorOverlay = () => (
-  <div style={{ padding: 10, background: '#fff', border: '1px solid #d9d9d9', borderRadius: 6 }}>
+  <section style={{ padding: 10, background: '#fff', border: '1px solid #d9d9d9', borderRadius: 6 }}>
     <Space direction="vertical" style={{ width: '100%' }}>
       
       {/* Adult Ticket Selector */}
@@ -23,7 +23,7 @@ const TicketSelectorOverlay = () => (
       </div>
 
     </Space>
-  </div>
+  </section>
 );
 
 export default TicketSelectorOverlay;

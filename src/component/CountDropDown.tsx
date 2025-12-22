@@ -89,6 +89,7 @@ const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adu
 
   return (
     <Dropdown
+      autoAdjustOverflow={false}
       // Control the visibility manually
       open={open}
       onOpenChange={setOpen}
@@ -113,7 +114,7 @@ interface RoomInputRowProps {
 }
 
 const RoomInputRow: React.FC<RoomInputRowProps> = ({ icon, label, value, onChange, min, max }) => (
-  <div className="flex justify-between items-center py-2">
+  <section className="flex justify-between items-center py-2">
     <Space size="small">
       {icon}
       <Text strong>{label}</Text>
@@ -131,7 +132,8 @@ const RoomInputRow: React.FC<RoomInputRowProps> = ({ icon, label, value, onChang
       
       {/* Input Number - Displays current value */}
       <InputNumber
-        value={value}
+        value={value} 
+        
         onChange={onChange}
         min={min}
         max={max}
@@ -149,7 +151,7 @@ const RoomInputRow: React.FC<RoomInputRowProps> = ({ icon, label, value, onChang
         disabled={value === max}
       />
     </Space>
-  </div>
+  </section>
 );
 
 export default RoomSelectorDropdown;

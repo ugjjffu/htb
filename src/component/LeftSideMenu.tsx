@@ -94,7 +94,7 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
           left: 0, 
           top: 0, 
           bottom: 0,
-          zIndex: 1000,
+          zIndex: 10000000000,
           // width:100,
         }}
       >

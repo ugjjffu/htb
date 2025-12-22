@@ -1,0 +1,24 @@
+@keyframes pulse-color {
+  /* 0% (Start) and 100% (End) should be the starting color (Gray) */
+  0%, 100% {
+    background-color: #cccccc; /* Light Gray */
+  }
+
+  /* 50% (Midpoint) should be the peak color (White) */
+  50% {
+    background-color: #ffffff; /* White */
+  }
+}
+
+.pulsing_box {
+  animation-name: pulse-color;
+  
+  /* How long one cycle of the animation takes */
+  animation-duration: 2s; 
+  
+  /* The timing function (ease-in-out makes the transition smooth and natural) */
+  animation-timing-function: ease-in-out; 
+  
+  /* Tells the animation to repeat forever */
+  animation-iteration-count: infinite; 
+}

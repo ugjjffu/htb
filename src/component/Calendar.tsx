@@ -22,8 +22,7 @@ const AntdCalendar: React.FC<CalendarProps> = ({selectedValue,setSelectedValue,p
 
   return (
     // Tailwind CSS container for centering and background styling
-    <div className="p-6 bg-gray-50 shadow-xl rounded-lg max-w-lg mx-auto border border-gray-200">
-      
+    <section className="bg-gray-50 shadow-xl rounded-lg w-[376px] mx-auto border border-gray-200">
       {/* --- Display Selected Date (Tailwind Styled) --- */}
       <Alert
         message={
@@ -52,7 +51,7 @@ const AntdCalendar: React.FC<CalendarProps> = ({selectedValue,setSelectedValue,p
           fullscreen={false}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

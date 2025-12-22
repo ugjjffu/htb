@@ -1,5 +1,6 @@
+'use client'
 import dayjs, { Dayjs } from 'dayjs'; // Import Dayjs type
-
+import { Tip } from '@/component/SearchResultItem';
 // --- TYPES & INTERFACES ---
 
 // Define the type for the 'City' string literal/enum if you have one, or just use string
@@ -23,8 +24,16 @@ export interface AppState {
   level: string;
   search_box_open: boolean;
   search_box_text: string;
-  stateOfLevelDropDown:boolean;
-  searchInput:string;
+  stateOfLevelDropDown: boolean;
+  searchInput: string;
+  isLoading: boolean;
+  searchResult: string;
+  tips: Array<Tip>;
+  isGeoInputBoxFocus: boolean;
+  choosenCity: string;
+  showMoreOpen: boolean;
+  recommendedSelectedCity: string;
+  recommendedHotelDetail: string;
 }
 export const initialState: AppState = {
   // New States
@@ -32,22 +41,30 @@ export const initialState: AppState = {
   openCityOptions: false,
   openCalendarOfCheckIn: false,
   // Initializing with dayjs() ensures the state is of type Dayjs
-  panelValueOfCheckIn: dayjs(), 
+  panelValueOfCheckIn: dayjs(),
   openCalendarOfCheckOut: false,
   // Initializing with dayjs() ensures the state is of type Dayjs
-  panelValueOfCheckOut: dayjs(), 
+  panelValueOfCheckOut: dayjs(),
   selectedCheckInValue: null, // Initializing to null for optional selection
   selectedCheckOutValue: null, // Initializing to null for optional selection
   rooms: 1, // Default value, matching your original useState
   adults: 1, // Default value, matching your original useState
   childrens: 0, // Default value, matching your original useState
-  stateOfLevelDropDown:false,
+  stateOfLevelDropDown: false,
   // Existing States
   open: false,
   level: '⭐', // Default level
   search_box_open: false,
   search_box_text: '',
   searchInput: '',
+  isLoading: false,
+  searchResult: "",
+  tips: [],
+  isGeoInputBoxFocus: false,
+  choosenCity: "北京",
+  showMoreOpen: false,
+  recommendedSelectedCity: "杭州",
+  recommendedHotelDetail: "",
 };
 // Define a union type for all possible actions
 export type AppAction =
@@ -69,9 +86,17 @@ export type AppAction =
   | { type: 'SET_SEARCHBOX_OPEN'; payload: boolean }
   | { type: 'SET_LEVELDROPDOWN_OPEN'; payload: boolean }
   | { type: 'SET_SEARCH_INPUT'; payload: string }
-  | { type: 'SET_SEARCHBOX_TEXT'; payload: string };
+  | { type: 'SET_SEARCHBOX_TEXT'; payload: string }
+  | { type: 'SET_ISLOADING'; payload: boolean }
+  | { type: 'SET_HOTEL_SEARCH_RESULTS'; payload: boolean }
+  | { type: 'SET_SEARCH_HOTEL_RESULT'; payload: Array<Tip> }
+  | { type: 'SET_GEO_INPUTBOX_FOCUS'; payload: boolean }
+  | { type: 'SET_CHOOSEN_CITY'; payload: string }
+  | { type: 'SET_SHOW_MORE_OPEN'; payload: boolean }
+  | { type: 'SET_RECOMMENDED_SELECTED_CITY'; payload: string }
+  | { type: 'SET_RECOMMENDED_HOTEL_DETAILS'; payload: string };
 
-  export function reducer(state: AppState, action: AppAction): AppState {
+export function reducer(state: AppState | undefined = initialState, action: AppAction): AppState {
   switch (action.type) {
     // --- New Cases ---
     case 'SET_SELECTED_CITY':
@@ -110,7 +135,23 @@ export type AppAction =
       return { ...state, stateOfLevelDropDown: action.payload };
     case 'SET_SEARCH_INPUT':
       return { ...state, searchInput: action.payload };
+    case 'SET_ISLOADING':
+      return { ...state, isLoading: action.payload };
+    case 'SET_HOTEL_SEARCH_RESULTS':
+      return { ...state, isLoading: action.payload };
+    case 'SET_SEARCH_HOTEL_RESULT':
+      return { ...state, tips: action.payload };
+    case 'SET_GEO_INPUTBOX_FOCUS':
+      return { ...state, isGeoInputBoxFocus: action.payload };
+    case 'SET_CHOOSEN_CITY':
+      return { ...state, choosenCity: action.payload };
+    case 'SET_SHOW_MORE_OPEN':
+      return { ...state, showMoreOpen: action.payload };
+    case 'SET_RECOMMENDED_SELECTED_CITY':
+      return { ...state, recommendedSelectedCity: action.payload };
+    case 'SET_RECOMMENDED_HOTEL_DETAILS':
+      return { ...state, recommendedHotelDetail: action.payload };
     default:
-      throw new Error(`Unhandled action type: ${(action as AppAction).type}`);
+      return state;
   }
 }

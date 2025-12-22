@@ -10,15 +10,15 @@ const BASE_URL      = 'https://restapi.amap.com/v3'; // Web 服务根路径
 export default async function getInputTips(req: NextApiRequest, res: NextApiResponse) {
     const keyword = req.query.keyword as string;
     const city = req.query.city as string | undefined;
-    console.log(keyword);
+    console.log(city);
     const params = new URLSearchParams({
         key: SERVER_KEY,
         keywords: keyword,
-        ...(city && { city }),
+        ...(city && { city:city }),
     });
 
     const resp = await fetch(`${BASE_URL}/assistant/inputtips?${params.toString()}`);
-    const data = await resp.json(); 
+    const data = await resp.json();
     if (!resp.ok || data.status !== '1') {
         console.error("AMap Error Response:", data);
         throw new Error(`AMap API Error: ${data.info}`);
