@@ -1,5 +1,5 @@
 'use client';
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import {
     AppState,
     initialState,
@@ -18,65 +18,41 @@ import { RobotFilled, RightOutlined, EnvironmentOutlined } from '@ant-design/ico
 import { relative } from 'path';
 import CityButton from './CityButton';
 import RecommendedCityDropDown from './RecommendedCityDropDown';
-import { useDispatch, useSelector } from 'react-redux';
+import { UseDispatch, useDispatch, useSelector } from 'react-redux';
 import HotelItem from './HotelItem';
 import { HotelRecommendationBar } from './HotelRecommendationBar';
+import { TripTicketRecommendation } from './TripTicketRecommendation';
+import { AppDispatch } from '@/reducer/store';
+import { PeopleRoomSelector } from './Test';
+import { getCurrentLngLat } from '../../utils/Geo';
+import { setAdultsState, setChildrensState, setLevelDropDownOpenState, setLevelState, setOpenCalendarOfCheckOut, setOpenState, setPlaceOfDeparture, setRoomsState, setSelectedCheckOutValue } from '@/reducer/action';
 type TopAreaProps = object
-
-const TopArea: React.FC<TopAreaProps> = () => {
-    // ----------------------------------------------------------------------
-    // 1. Unified useReducer hook (Assuming 'reducer' is the merged function)
-    //    The second reducer (stateOfLevelDropDown) has been removed as all state is now centralized.
-    // ----------------------------------------------------------------------
-    const [state, dispatch] = useReducer(reducer, initialState);
-    // const choosenCity = useSelector((s: AppState) => s.choosenCity);
-    const globalDispatch = useDispatch();
-    const {
-        selectedCity,
-        openCityOptions,
-        openCalendarOfCheckIn,
-        panelValueOfCheckIn,
-        openCalendarOfCheckOut,
-        panelValueOfCheckOut,
-        selectedCheckInValue,
-        selectedCheckOutValue,
-        open,
-        rooms,
-        adults,
-        childrens,
-        level, // Now accessed directly from the main state
-        stateOfLevelDropDown,
-    } = state;
-
-    // ----------------------------------------------------------------------
-    // 2. Refactored Event Handlers to use dispatch
-    // ----------------------------------------------------------------------
-
-    const handleCitySelect: (city: City) => void = (city: City) => {
-        // Replace setSelectedCity with dispatch
-        dispatch({ type: 'SET_SELECTED_CITY', payload: city });
-        // Replace setOpenCityOptions with dispatch
-        dispatch({ type: 'SET_OPEN_CITY_OPTIONS', payload: false });
-    };
-
-    // Helper for Drodown's onOpenChange, which accepts a boolean
-    const handleOpenCityOptionsChange = (newOpen: boolean) => {
-        dispatch({ type: 'SET_OPEN_CITY_OPTIONS', payload: newOpen });
-    };
-
-    const handleOpenCheckInChange = (newOpen: boolean) => {
-        dispatch({ type: 'SET_OPEN_CALENDAR_CHECKIN', payload: newOpen });
-    };
-
-    const handleOpenCheckOutChange = (newOpen: boolean) => {
-        dispatch({ type: 'SET_OPEN_CALENDAR_CHECKOUT', payload: newOpen });
-    };
-
-    // ----------------------------------------------------------------------
-    // 3. Refactored Custom Pop-up Renders to use dispatch for inner component props
-    // ----------------------------------------------------------------------
-
-    const HotelSelectedPopupRender: () => React.ReactElement = () => (
+const CheckOutCalendar: () => React.ReactElement = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const selectedCheckOutValue = useReservation().selectedCheckOutValue;
+    const openCalendarOfCheckOut = useReservation().openCalendarOfCheckOut;
+    const panelValueOfCheckOut = useReservation().panelValueOfCheckOut;
+    return (
+        <Calendar
+            selectedValue={selectedCheckOutValue}
+            // Replace setSelectedCheckOutValue with dispatch
+            setSelectedValue={(value: Dayjs | null) => {
+                dispatch(setSelectedCheckOutValue(value));
+                dispatch(setOpenCalendarOfCheckOut(!openCalendarOfCheckOut));
+            }
+            }
+            panelValue={panelValueOfCheckOut}
+            // Replace setPanelValueOfCheckOut with dispatch
+            setPanelValue={(value: Dayjs) =>
+                dispatch({ type: 'SET_PANEL_VALUE_CHECKOUT', payload: value })
+            }
+        />
+    )
+};
+const HotelSelectedPopupRender: () => React.ReactElement = () => {
+    const handleCitySelect = useReservation().handleCitySelect;
+    const selectedCity = useReservation().selectedCity;
+    return (
         <div className="city-dropdown-popup">
             <div className="font-semibold bg-gray-200">
                 <div className="p-2">popular city</div>
@@ -88,19 +64,14 @@ const TopArea: React.FC<TopAreaProps> = () => {
                 />
             </div>
         </div>
-    );
-    const recommendedCitySelectedPopupRender: () => React.ReactElement = () => (
-        <div className="city-dropdown-popup h-40 overflow-y-scroll">
-            <div className="p-2">
-                <RecommendedCityDropDown
-                    onSelectCity={(city: string) => { dispatch({ type: 'SET_RECOMMENDED_SELECTED_CITY', payload: city }); globalDispatch({ type: 'SET_CHOOSEN_CITY', payload: city }); }}
-                    selectedCity={state.recommendedSelectedCity}
-                />
-            </div>
-        </div>
-    );
-    // Creates functions that dispatch actions for Calendar updates
-    const customCalendarOfCheckIn: () => React.ReactElement = () => (
+    )
+};
+const CheckInCalendar: () => React.ReactElement = () => {
+    const dispatch = useDispatch();
+    const selectedCheckInValue = useReservation().selectedCheckInValue;
+    const openCalendarOfCheckIn = useReservation().openCalendarOfCheckIn;
+    const panelValueOfCheckIn = useReservation().panelValueOfCheckIn;
+    return (
         <Calendar
             selectedValue={selectedCheckInValue}
             // Replace setSelectedCheckInValue with dispatch
@@ -114,28 +85,115 @@ const TopArea: React.FC<TopAreaProps> = () => {
             setPanelValue={(value: Dayjs) =>
                 dispatch({ type: 'SET_PANEL_VALUE_CHECKIN', payload: value })
             }
-        />
-    );
+        />)
+};
 
-    const customCalendarOfCheckOut: () => React.ReactElement = () => (
 
-        <Calendar
-            selectedValue={selectedCheckOutValue}
-            // Replace setSelectedCheckOutValue with dispatch
-            setSelectedValue={(value: Dayjs | null) => {
-                dispatch({ type: 'SET_SELECTED_CHECKOUT_VALUE', payload: value });
-                dispatch({ type: "SET_OPEN_CALENDAR_CHECKOUT", payload: !openCalendarOfCheckOut })
-            }
-            }
-            panelValue={panelValueOfCheckOut}
-            // Replace setPanelValueOfCheckOut with dispatch
-            setPanelValue={(value: Dayjs) =>
-                dispatch({ type: 'SET_PANEL_VALUE_CHECKOUT', payload: value })
-            }
-        />
+export const useReservation = () => {
+    const dispatch = useDispatch();
+    const selectedCity = useSelector((s: AppState) => s.selectedCity);
+    const openCityOptions = useSelector((s: AppState) => s.openCityOptions);
+    const openCalendarOfCheckIn = useSelector((s: AppState) => s.openCalendarOfCheckIn);
+    const panelValueOfCheckIn = useSelector((s: AppState) => s.panelValueOfCheckIn);
+    const openCalendarOfCheckOut = useSelector((s: AppState) => s.openCalendarOfCheckOut);
+    const panelValueOfCheckOut = useSelector((s: AppState) => s.panelValueOfCheckOut);
+    const selectedCheckInValue = useSelector((s: AppState) => s.selectedCheckInValue);
+    const selectedCheckOutValue = useSelector((s: AppState) => s.selectedCheckOutValue);
+    const open = useSelector((s: AppState) => s.open);
+    const rooms = useSelector((s: AppState) => s.rooms);
+    const adults = useSelector((s: AppState) => s.adults);
+    const childrens = useSelector((s: AppState) => s.childrens);
+    const level = useSelector((s: AppState) => s.level);
+    const stateOfLevelDropDown = useSelector((s: AppState) => s.stateOfLevelDropDown);
+    const recommendedSelectedCity = useSelector((s: AppState) => s.recommendedSelectedCity);
+    const handleOpenCityOptionsChange = (newOpen: boolean) => {
+        dispatch({ type: 'SET_OPEN_CITY_OPTIONS', payload: newOpen });
+    };
+    function handleOpenCheckInChange(newOpen: boolean) {
+        dispatch({ type: 'SET_OPEN_CALENDAR_CHECKIN', payload: newOpen });
+    }
+    const handleOpenCheckOutChange = (newOpen: boolean) => {
+        dispatch({ type: 'SET_OPEN_CALENDAR_CHECKOUT', payload: newOpen });
+    };
+    return {
+        // state slices
+        selectedCity: useSelector((s: AppState) => s.selectedCity),
+        openCityOptions: useSelector((s: AppState) => s.openCityOptions),
+        // ...whatever else you need
+        // action helpers
+        setSelectedCity: (c: City) => dispatch({ type: 'SET_SELECTED_CITY', payload: c }),
+        setOpenCityOptions: (o: boolean) => dispatch({ type: 'SET_OPEN_CITY_OPTIONS', payload: o }),
+        handleCitySelect: (city: City) => {
+            // Replace setSelectedCity with dispatch
+            dispatch({ type: 'SET_SELECTED_CITY', payload: city });
+            // Replace setOpenCityOptions with dispatch
+            dispatch({ type: 'SET_OPEN_CITY_OPTIONS', payload: false });
+        },
+        handleOpenCityOptionsChange,
+        handleOpenCheckInChange,
+        handleOpenCheckOutChange,
+        selectedCheckInValue,
+        openCalendarOfCheckIn,
+        panelValueOfCheckIn,
+        openCalendarOfCheckOut,
+        panelValueOfCheckOut,
+        selectedCheckOutValue,
+        open,
+        rooms,
+        adults,
+        childrens,
+        level,
+        stateOfLevelDropDown,
+        recommendedSelectedCity,
+    };
+};
+const TopArea: React.FC<TopAreaProps> = () => {
+    // ----------------------------------------------------------------------
+    // 1. Unified useReducer hook (Assuming 'reducer' is the merged function)
+    //    The second reducer (stateOfLevelDropDown) has been removed as all state is now centralized.
+    // ----------------------------------------------------------------------
+    // const [state, dispatch] = useReducer(reducer, initialState);
+    // const choosenCity = useSelector((s: AppState) => s.choosenCity);
+    const dispatch = useDispatch();
+    const globalDispatch = useDispatch();
+    const selectedCity = useSelector((s: AppState) => s.selectedCity);
+    const openCityOptions = useSelector((s: AppState) => s.openCityOptions);
+    const openCalendarOfCheckIn = useSelector((s: AppState) => s.openCalendarOfCheckIn);
+    const panelValueOfCheckIn = useSelector((s: AppState) => s.panelValueOfCheckIn);
+    const openCalendarOfCheckOut = useSelector((s: AppState) => s.openCalendarOfCheckOut);
+    const panelValueOfCheckOut = useSelector((s: AppState) => s.panelValueOfCheckOut);
+    const selectedCheckInValue = useSelector((s: AppState) => s.selectedCheckInValue);
+    const selectedCheckOutValue = useSelector((s: AppState) => s.selectedCheckOutValue);
+    const open = useSelector((s: AppState) => s.open);
+    const rooms = useSelector((s: AppState) => s.rooms);
+    const adults = useSelector((s: AppState) => s.adults);
+    const childrens = useSelector((s: AppState) => s.childrens);
+    const level = useSelector((s: AppState) => s.level);
+    const stateOfLevelDropDown = useSelector((s: AppState) => s.stateOfLevelDropDown);
+    const recommendedSelectedCity = useSelector((s: AppState) => s.recommendedSelectedCity);
+    // const placeOfDeparture = useSelector((s: AppState) => s.placeOfDeparture);
+    useEffect(() => {
+        const f = async () => {
+            const getLatAndLng = async () => getCurrentLngLat();
+            const { lng, lat } = await getLatAndLng();
+            const apiUrl = `http://localhost:3000/api/AmapGetArea?lng=${lng}&lat=${lat}`;
+            //send a req to search for hotel
+            //after receive data,set is loading to false
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            dispatch(setPlaceOfDeparture(data.regeocode.addressComponent.province));
+            // alert(JSON.stringify(data.regeocode.addressComponent.province));
+        }
+        f();
+    }, [])
+    const handleCitySelect = useReservation().handleCitySelect;
 
-    );
+    // Helper for Drodown's onOpenChange, which accepts a boolean
+    const handleOpenCityOptionsChange = useReservation().handleOpenCityOptionsChange;
 
+    const handleOpenCheckInChange = useReservation().handleOpenCheckInChange;
+
+    const handleOpenCheckOutChange = useReservation().handleOpenCheckOutChange;
     const backgroundImageUrl = '/bg-rc.jpg';
     const forcedPlacement = {
         // Define only the 'bottomRight' placement
@@ -148,6 +206,12 @@ const TopArea: React.FC<TopAreaProps> = () => {
             },
         },
     };
+
+    useEffect(() => {
+        const a ={b:"c"};
+        const c=JSON.parse(JSON.stringify(a));
+        alert(a===c);
+    }, [])
     return (
         <section className="flex space-x-4 justify-center">
             <div className="flex flex-col w-[740px]" >
@@ -155,6 +219,7 @@ const TopArea: React.FC<TopAreaProps> = () => {
                     style={{
                         backgroundImage: `url(${backgroundImageUrl})`,
                         backgroundSize: 'cover',
+
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                     }}
@@ -164,27 +229,27 @@ const TopArea: React.FC<TopAreaProps> = () => {
                     </header>
                     <div className="bg-white text-black w-176 rounded-[10px] h-18 flex flex-row justify-center items-center">
                         {/* City Dropdown */}
-                        <div className="w-78 h-full">
-                            <span className="inline-block text-base ml-2 mt-2.5">目的/酒店名称</span>
-                            <div className={`ml-2.5 mb-0.5 ${openCityOptions ? 'border-b-3' : ''}`}>
+                        <div className="w-78 flex flex-col justify-center pl-[10px]">
+                            <span className="inline-block text-base">目的/酒店名称</span>
+                            <div className={` mb-0.5 ${openCityOptions ? 'border-b-3' : ''}`}>
                                 <Dropdown
                                     autoAdjustOverflow={false}
                                     trigger={['click']}
                                     open={openCityOptions}
                                     // Replace setOpenCityOptions with handler
                                     onOpenChange={handleOpenCityOptionsChange}
-                                    popupRender={HotelSelectedPopupRender}
+                                    popupRender={() => <HotelSelectedPopupRender />}
                                 >
-                                    {selectedCity}
+                                    <button aria-haspopup="dialog">{selectedCity}</button>
                                 </Dropdown>
                             </div>
                         </div>
                         <div className="h-8 w-px bg-gray-400 h-12"></div>
-                        <div className="w-98 h-full flex flex-row ml-0">
+                        <div className="w-98 h-full flex flex-row">
                             {/* Check-In Dropdown */}
-                            <div className="w-43">
-                                <span className="inline-block text-base ml-2 mt-2.5">入住</span>
-                                <div className="ml-2.5">
+                            <div className="w-[172px] flex flex-col justify-center pl-[10px]">
+                                <span className="inline-block text-base">入住</span>
+                                <div className="">
                                     <Dropdown
                                         autoAdjustOverflow={false}
                                         placement='bottomLeft'
@@ -192,17 +257,17 @@ const TopArea: React.FC<TopAreaProps> = () => {
                                         open={openCalendarOfCheckIn}
                                         // Replace setOpenCalendarOfCheckIn with handler
                                         onOpenChange={handleOpenCheckInChange}
-                                        popupRender={customCalendarOfCheckIn}
+                                        popupRender={() => <CheckInCalendar></CheckInCalendar>}
                                     >
-                                        <div>{selectedCheckInValue ? selectedCheckInValue.format('YYYY-MM-DD') : panelValueOfCheckIn.format('YYYY-MM-DD')}</div>
+                                        <button id="check-in-btn" aria-haspopup="dialog" type='button'>{selectedCheckInValue ? selectedCheckInValue.format('YYYY-MM-DD') : panelValueOfCheckIn.format('YYYY-MM-DD')}</button>
                                     </Dropdown>
                                 </div>
                             </div>
                             <div className="w-8 ml-2 mr-2">1</div>
                             {/* Check-Out Dropdown */}
-                            <div className="w-43">
-                                <span className="inline-block text-base ml-2 mt-2.5">退房</span>
-                                <div className="ml-2.5">
+                            <div className="w-[172px] pl-[10px] flex flex-col justify-center">
+                                <span className="inline-block text-base">退房</span>
+                                <div className="">
                                     <Dropdown
                                         autoAdjustOverflow={false}
                                         placement="bottomRight"
@@ -210,10 +275,10 @@ const TopArea: React.FC<TopAreaProps> = () => {
                                         open={openCalendarOfCheckOut}
                                         // Replace setOpenCalendarOfCheckOut with handler
                                         onOpenChange={handleOpenCheckOutChange}
-                                        popupRender={customCalendarOfCheckOut}
+                                        popupRender={() => <CheckOutCalendar></CheckOutCalendar>}
                                     // getPopupContainer={() =>document.body }
                                     >
-                                        <div className='w-full'>{selectedCheckOutValue ? selectedCheckOutValue.format('YYYY-MM-DD') : panelValueOfCheckOut.format('YYYY-MM-DD')}</div>
+                                        <button className=''>{selectedCheckOutValue ? selectedCheckOutValue.format('YYYY-MM-DD') : panelValueOfCheckOut.format('YYYY-MM-DD')}</button>
                                     </Dropdown>
                                 </div>
                             </div>
@@ -222,47 +287,42 @@ const TopArea: React.FC<TopAreaProps> = () => {
                     <div id="section2-2" className="w-176 rounded-[10px] h-18 text-white text-xl mt-3 flex flex-row" >
                         <div className="bg-white text-black w-140 rounded-[10px] flex flex-row items-center">
                             {/* Rooms/Guests Dropdown */}
-                            <div className="w-34.5 h-18">
-                                <span className="inline-block text-base ml-2 mt-2.5">房间及住客</span>
-                                <div className="ml-2 flex flex-row item-center">
+                            <div className="w-34.5 h-18 pl-[10px]">
+                                <span className="inline-block text-base mt-2.5">房间及住客</span>
+                                <div className="flex flex-row items-center">
                                     <CountDropDown
                                         open={open}
-                                        // Replace setOpen with dispatch
-                                        setOpen={(value: boolean) => dispatch({ type: 'SET_OPEN', payload: value })}
+                                        setOpen={(value: boolean) => setOpenState(dispatch,value)}
                                         adults={adults}
-                                        // Replace setAdults with dispatch
-                                        setAdults={(value: number) => dispatch({ type: 'SET_ADULTS', payload: value })}
+                                        setAdults={(value: number) => setAdultsState(dispatch,value)}
                                         childrens={childrens}
-                                        // Replace setChildrens with dispatch
-                                        setChildrens={(value: number) => dispatch({ type: 'SET_CHILDRENS', payload: value })}
+                                        setChildrens={(value: number) => setChildrensState(dispatch,value)}
                                         rooms={rooms}
-                                        // Replace setRooms with dispatch
-                                        setRooms={(value: number) => dispatch({ type: 'SET_ROOMS', payload: value })}
+                                        setRooms={(value: number) => setRoomsState(dispatch,value)}
                                     />
-                                    <div className="ml-3"></div>
                                 </div>
                             </div>
                             <div className="h-8 w-px bg-gray-400 h-12"></div>
                             <div className="w-92 h-full flex flex-row ml-0">
                                 {/* Hotel Level Dropdown */}
-                                <div className="w-43">
-                                    <span className="inline-block text-base ml-2 mt-2.5">酒店类型</span>
-                                    <div className="ml-2.5">
+                                <div className="w-[172px] pl-[10px] flex flex-col justify-center">
+                                    <span className="inline-block text-base">酒店类型</span>
+                                    <div className="">
                                         {/* {level} */}
                                         <LevelOfHotelDropDown
                                             open={stateOfLevelDropDown} // Use state.open from the unified state
                                             // Dispatch SET_OPEN action
-                                            setOpen={() => dispatch({ type: 'SET_LEVELDROPDOWN_OPEN', payload: !state.stateOfLevelDropDown })}
-                                            level={state.level} // Use state.level from the unified state
+                                            setOpen={() => setLevelDropDownOpenState(dispatch,!stateOfLevelDropDown)}
+                                            level={level} // Use state.level from the unified state
                                             // Dispatch SET_LEVEL action
-                                            setLevel={(newLevel: string) => dispatch({ type: 'SET_LEVEL', payload: newLevel })}
+                                            setLevel={(newLevel: string) => setLevelState(dispatch,newLevel)}
                                         />
                                     </div>
                                 </div>
                                 {/* Keywords/GeoBox */}
-                                <div className="w-48 flex flex-col h-18">
-                                    <span className="inline-block text-base ml-2 mt-2">关键词-选填</span>
-                                    <div className="ml-2.5">
+                                <div className="w-48 flex flex-col justify-center  h-18 pl-[10px]">
+                                    <span className="inline-block text-base">关键词-选填</span>
+                                    <div className="">
                                         <SeachGeoBox
                                         />
                                     </div>
@@ -331,7 +391,7 @@ const TopArea: React.FC<TopAreaProps> = () => {
                 </div>
                 {/* <div className='flex flex-row text-xl h-[340px] w-full mt-3.5' id="section10"> */}
                 <HotelRecommendationBar></HotelRecommendationBar>
-                {/* </div> */}
+                <TripTicketRecommendation></TripTicketRecommendation>
             </div>
             {/* Component 2: Set to half width (w-1/2) */}
             <div className=" space-y-4 flex flex-col"> {/* Added space-y-4 for vertical gap */}
@@ -343,6 +403,8 @@ const TopArea: React.FC<TopAreaProps> = () => {
                 <div className="p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg shadow-md mt-auto mb-4">
                     <h3 className="text-lg font-semibold text-yellow-800">NewVerticalContent</h3>
                     <p className="text-sm text-yellow-700">This content is now stacked vertically beneath the slider.</p>
+                </div>
+                <div>
                 </div>
             </div>
         </section >

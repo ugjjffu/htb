@@ -34,6 +34,11 @@ export interface AppState {
   showMoreOpen: boolean;
   recommendedSelectedCity: string;
   recommendedHotelDetail: string;
+  selectedCategoryOfCity: string;
+  isChineseMainland: boolean;
+  selectedHotCity: string;
+  showMoreCityOfPlaceOfDeparture: boolean;
+  placeOfDeparture: string;
 }
 export const initialState: AppState = {
   // New States
@@ -65,6 +70,10 @@ export const initialState: AppState = {
   showMoreOpen: false,
   recommendedSelectedCity: "杭州",
   recommendedHotelDetail: "",
+  selectedCategoryOfCity: "1",
+  isChineseMainland: true,
+  showMoreCityOfPlaceOfDeparture: false,
+  placeOfDeparture: '广东'
 };
 // Define a union type for all possible actions
 export type AppAction =
@@ -94,7 +103,12 @@ export type AppAction =
   | { type: 'SET_CHOOSEN_CITY'; payload: string }
   | { type: 'SET_SHOW_MORE_OPEN'; payload: boolean }
   | { type: 'SET_RECOMMENDED_SELECTED_CITY'; payload: string }
-  | { type: 'SET_RECOMMENDED_HOTEL_DETAILS'; payload: string };
+  | { type: 'SET_RECOMMENDED_HOTEL_DETAILS'; payload: string }
+  | { type: 'SET_SELECTED_CATEGORY_OF_CITY'; payload: string }
+  | { type: 'SET_IS_CHINESE_MAINLAND'; payload: boolean }
+  | { type: 'SET_SHOW_MORE_CITY_OF_PLACE_OF_DEPARTURE'; payload: boolean }
+  | { type: 'SET_PLACE_OF_DEPARTURE'; payload: string };
+
 
 export function reducer(state: AppState | undefined = initialState, action: AppAction): AppState {
   switch (action.type) {
@@ -151,6 +165,14 @@ export function reducer(state: AppState | undefined = initialState, action: AppA
       return { ...state, recommendedSelectedCity: action.payload };
     case 'SET_RECOMMENDED_HOTEL_DETAILS':
       return { ...state, recommendedHotelDetail: action.payload };
+    case 'SET_SELECTED_CATEGORY_OF_CITY':
+      return { ...state, selectedCategoryOfCity: action.payload };
+    case 'SET_IS_CHINESE_MAINLAND':
+      return { ...state, isChineseMainland: action.payload };
+    case 'SET_SHOW_MORE_CITY_OF_PLACE_OF_DEPARTURE':
+      return { ...state, showMoreCityOfPlaceOfDeparture: action.payload };
+    case 'SET_PLACE_OF_DEPARTURE':
+      return { ...state, placeOfDeparture: action.payload };
     default:
       return state;
   }

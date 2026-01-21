@@ -1,3 +1,5 @@
+import AntdRegistry from '@/app/antd-registry';
+import { ConfigProvider } from 'antd';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -7,7 +9,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <AntdRegistry>
+          <ConfigProvider theme={{ }} >
+            {children}
+          </ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

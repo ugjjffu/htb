@@ -8,7 +8,5 @@ export const store = configureStore({
   preloadedState: initialState,
   devTools: process.env.NODE_ENV !== 'production',
 });
-
-// derive the root-state and dispatch types once
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

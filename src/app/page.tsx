@@ -11,6 +11,7 @@ import TopArea from '@/component/TopAreaOfHotelReservation';
 import React, { useState } from "react"; // Ensure React is imported
 import { store } from '@/reducer/store/index'
 import { Provider } from 'react-redux';
+import { BankOutlined } from '@ant-design/icons';
 const { Header, Sider, Content } = Layout;
 
 // Define your custom font variables (can be simplified if not needed globally)
@@ -87,11 +88,77 @@ export default function Home() {
           >
             <div className="h-full flex flex-col items-center mt-3">
               <TopArea ></TopArea>
-
               {/* The rest of your content area */}
               <div className="w-[1184px] p-6 bg-white rounded-lg shadow-md"> {/* Adjusted width/padding for content container */}
-                <div id="section13" className="bg-green-600 text-white text-xl flex items-center h-[38px] justify-center border-b border-gray-700">
-                  Right - Section 3
+                <div id="section13" className="bg-white text-white text-xl flex items-center h-[152px] justify-center">
+                  <div className="w-full h-full">
+                    <div className="flex flex-col h-full">
+                      <span className="text-black font-bold w-full">企业商旅</span>
+                      <div className="flex flex-row w-full h-full">
+
+                        <div className="flex flex-row h-full items-center rounded-[5px]" style={{background: 'linear-gradient(135deg, #cedcf1ff 0%, #98bff8ff 100%)'}}>
+                          <div className="flex items-center justify-center p-5">
+                            <img src="/firm1.png" />
+                          </div>
+                          <div className="flex flex-col justify-center">
+                            <div className="text-black">一站式企业差旅服务</div>
+                            <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
+                              <div className="block mt-1">
+                                一站式企业差旅服务海量差旅产品，全流程服务，智能管控，助企业成本节省高达30%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-row h-full items-center ml-3 rounded-[5px]"  style={{background: 'linear-gradient(135deg, #f1ebdeff 0%, #f2c68cff 100%)'}}>
+                          <div className="flex items-center justify-center p-5">
+                            <img src="/firm2.png" />
+                          </div>
+                          <div className="flex flex-col justify-center">
+                            <div className="text-black">公对公结算</div>
+                            <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
+                              <div className="block mt-1">
+                                15分钟极速开通公司账户、30+20天超长账期，自助对账，统一开票、配送！
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-row h-full items-center rounded-[5px] ml-3" style={{background: 'linear-gradient(135deg, #e2f1deff 0%, #b8f694ff 100%)'}}>
+                          <div className="flex items-center justify-center p-5">
+                            <img src="/firm3.png" />
+                          </div>
+                          <div className="flex flex-col justify-center">
+                            <div className="text-black">企业方案量身定制</div>
+                            <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
+                              <div className="block mt-1">
+                                强大的产品技术&服务解决方案 ，支持企业规模在500人以上中大型企业定制
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {/* <div className="flex flex-row">
+                          <div className="flex flex-row bg-blue-200 h-full items-center">
+                            <div className="flex items-center justify-center">
+                              <BankOutlined className="flex items-center justify-center  text-[30px] w-[45px] h-[45px] bg-blue-500 rounded-[50%]" style={{
+                                background: 'linear-gradient(135deg, #f7f7f8ff 0%, #3b82f6 50%, #3b82f6 100%)'
+                              }} />
+                            </div>
+                            <div className="flex flex-col justify-center">
+                              <div className="text-black">一站式企业差旅服务</div>
+                              <div className="h-10 mt-3" style={{fontSize:"14px"}}>
+                                <div className="block ">
+                                  一站式企业差旅服务海量差旅产品，全流程服务，智能管控，助
+                                </div>
+                                <div className="block ">
+                                  企业成本节省高达30%
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> */}
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div id="section14" className="bg-yellow-600 text-white text-xl flex items-center h-[300px] justify-center"> {/* Set a sample height */}
                   Right - Section 4

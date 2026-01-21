@@ -1,46 +1,55 @@
-import React, { useRef, useEffect } from 'react';
+import { useState } from "react";
+import { Dropdown, Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
-const StickyScrollToBottom = () => {
-  // 1. Ref for the scrollable parent container
-  const parentRef = useRef(null);
+export const PeopleRoomSelector = () => {
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+  const [rooms, setRooms] = useState(1);
 
-  // 2. Data for the list content
-  const contentItems = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
-
-  // 3. useEffect to scroll to the bottom when the component mounts or content changes
-  useEffect(() => {
-    if (parentRef.current) {
-      // Scroll to the absolute bottom of the scrollable element
-      parentRef.current.scrollTop = parentRef.current.scrollHeight;
-    }
-  }, []); // Empty dependency array ensures it only runs once on mount
-
-  return (
-    <div className="flex justify-center p-4 bg-gray-100 min-h-screen">
-      <div 
-        ref={parentRef} // Attach the ref here
-        className="relative w-full max-w-sm h-96 overflow-y-scroll border-2 border-blue-500 shadow-xl rounded-lg bg-white"
-        // Key parent classes: relative (for sticky context), h-96 (defined height), overflow-y-scroll (enables scrolling)
-      >
-        <div className="p-4">
-          <h2 className="text-xl font-bold text-gray-700 mb-2">Scrollable Content</h2>
-          {contentItems.map((item, index) => (
-            <p key={index} className="py-1 text-gray-600 border-b border-gray-200 last:border-b-0">
-              {item}
-            </p>
-          ))}
+  const menuContent = (
+    <div className="p-3 w-56 space-y-3">
+      {/* Adults */}
+      <div className="flex justify-between items-center">
+        <span>成人</span>
+        <div className="flex items-center space-x-2">
+          <Button size="small" onClick={() => setAdults(Math.max(1, adults - 1))}>-</Button>
+          <span>{adults}</span>
+          <Button size="small" onClick={() => setAdults(adults + 1)}>+</Button>
         </div>
+      </div>
 
-        {/* The Sticky Element */}
-        <div 
-          className="sticky bottom-0 p-4 bg-blue-500 text-white text-center font-semibold shadow-lg"
-          // Key sticky classes: sticky and bottom-0 (sticks to the bottom of the parent)
-        >
-          I am sticky to the bottom of the parent!
+      {/* Children */}
+      <div className="flex justify-between items-center">
+        <span>儿童</span>
+        <div className="flex items-center space-x-2">
+          <Button size="small" onClick={() => setChildren(Math.max(0, children - 1))}>-</Button>
+          <span>{children}</span>
+          <Button size="small" onClick={() => setChildren(children + 1)}>+</Button>
+        </div>
+      </div>
+
+      {/* Rooms */}
+      <div className="flex justify-between items-center">
+        <span>房间</span>
+        <div className="flex items-center space-x-2">
+          <Button size="small" onClick={() => setRooms(Math.max(1, rooms - 1))}>-</Button>
+          <span>{rooms}</span>
+          <Button size="small" onClick={() => setRooms(rooms + 1)}>+</Button>
         </div>
       </div>
     </div>
   );
-};
 
-export default StickyScrollToBottom;
+  return (
+    <Dropdown overlay={menuContent} trigger={["click"]}>
+      {/* ✅ Must be a single React element */}
+      <Button className="flex items-center border rounded px-2 py-1 cursor-pointer">
+        <UserOutlined className="text-gray-500 mr-2" />
+        <span className="text-sm">
+          成人 {adults}, 儿童 {children}, 房间 {rooms}
+        </span>
+      </Button>
+    </Dropdown>
+  );
+};

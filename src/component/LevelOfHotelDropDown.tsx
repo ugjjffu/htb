@@ -1,8 +1,7 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Dropdown, Button, InputNumber, Space, Typography } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
-import { Fascinate } from 'next/font/google';
 const { Text } = Typography;
 interface Props {
   open: boolean;
@@ -11,14 +10,18 @@ interface Props {
   setLevel: (level: string) => void;
 }
 // --- 1. Define the Component and State ---
-const LevelSeletorDropdown: React.FC<Props> = ({ open, setOpen, level, setLevel }) => {
+const LevelSelectorDropdown: React.FC<Props> = ({ open, setOpen, level, setLevel }) => {
   // --- 2. Handlers for Input/Button Actions ---
   const [isHoveredArr, setIsHoveredArr] = useState([false, false, false, false, false]);
-  const handleConfirm = () => {
-    setOpen(false);
+  function abc() {
+
   };
+  const handleConfirm = useCallback(() => {
+    setOpen(false);
+    abc();
+  }, [setOpen]);
   const bgBlue = 'bg-blue-100';
-  const popupContent = (
+  const PopupContent = (
     <div className="p-4 bg-white border border-gray-200 rounded-md shadow-lg w-72">
       {/* 3.2. Confirm Button on the right */}
       <div className='w-full'>
@@ -49,7 +52,7 @@ const LevelSeletorDropdown: React.FC<Props> = ({ open, setOpen, level, setLevel 
       </div>
     </div>
   );
-
+  const PopupRender = useCallback(() => PopupContent, [isHoveredArr, PopupContent]);
   // --- 4. Render Trigger (What the user clicks) ---
   const renderTrigger = (
     <Space onClick={() => setOpen(!open)}>
@@ -65,7 +68,7 @@ const LevelSeletorDropdown: React.FC<Props> = ({ open, setOpen, level, setLevel 
       onOpenChange={setOpen}
       trigger={['click']}
       // Inject the custom content
-      popupRender={() => popupContent}
+      popupRender={() => <PopupRender />}
     >
       <div className='flex flex-row'>
         <div>{level}</div>
@@ -76,4 +79,4 @@ const LevelSeletorDropdown: React.FC<Props> = ({ open, setOpen, level, setLevel 
 };
 
 
-export default LevelSeletorDropdown;
+export default LevelSelectorDropdown;
