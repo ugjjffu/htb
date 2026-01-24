@@ -76,7 +76,7 @@ const App: React.FC = () => {
     Lodash.debounce(async (input: string) => {
       controllerRef.current?.abort();            // cancel previous
       controllerRef.current = new AbortController();
-      const apiUrl = 'http://localhost:3000/api/AmapGetInputTips?keyword=' + input;
+      const apiUrl = '/api/AmapGetInputTips?keyword=' + input;
       //send a req to search for hotel
       //after receive data,set is loading to false
       try {
@@ -86,7 +86,6 @@ const App: React.FC = () => {
         }
         const data = await response.json();
         dispatch({ type: 'SET_SEARCH_HOTEL_RESULT', payload: data.tips });
-        // alert(JSON.stringify(data));
       } catch (err) {
         console.error("Fetch error:", err);
       } finally {

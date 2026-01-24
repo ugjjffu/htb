@@ -23,7 +23,7 @@ import HotelItem from '../component/HotelItem';
 export const HotelRecommendationBar = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const choosenCity = useSelector((s: AppState) => s.choosenCity);
-    const showMoreOpen = useSelector((s: AppState) => s.op);
+    const showMoreOpen = useSelector((s: AppState) => s.open);
     const globalDispatch = useDispatch();
     const host= process.env.NEXT_PUBLIC_HOST;
     useEffect(() => {
