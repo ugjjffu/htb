@@ -7,7 +7,7 @@ import { Layout, theme } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import Menu from "@/component/LeftSideMenu"
 import Nav from "@/component/Nav"
-import TopArea from '@/component/TopAreaOfHotelReservation';
+import TopArea from '@/sections/TopAreaOfHotelReservation';
 import React, { useState } from "react"; // Ensure React is imported
 import { store } from '@/reducer/store/index'
 import { Provider } from 'react-redux';
@@ -45,11 +45,10 @@ export default function Home() {
           trigger={null} // Don't use AntD's default trigger, we'll use the one in the header
           collapsible
           collapsed={collapsed}
-          width={180} // Set your desired expanded width
           collapsedWidth={48} // AntD's default collapsed width is usually 48 or 80
           style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}
+          className=''
         >
-          {/* Your custom Menu component is placed inside the Sider */}
           <Menu collapsed={collapsed} setCollapsed={setCollapsed}></Menu>
         </Sider>
 
@@ -89,14 +88,14 @@ export default function Home() {
             <div className="h-full flex flex-col items-center mt-3">
               <TopArea ></TopArea>
               {/* The rest of your content area */}
-              <div className="w-[1184px] p-6 bg-white rounded-lg shadow-md"> {/* Adjusted width/padding for content container */}
+              <div className="w-full p-6 bg-white rounded-lg shadow-md"> {/* Adjusted width/padding for content container */}
                 <div id="section13" className="bg-white text-white text-xl flex items-center h-[152px] justify-center">
                   <div className="w-full h-full">
                     <div className="flex flex-col h-full">
                       <span className="text-black font-bold w-full">企业商旅</span>
                       <div className="flex flex-row w-full h-full">
 
-                        <div className="flex flex-row h-full items-center rounded-[5px]" style={{background: 'linear-gradient(135deg, #cedcf1ff 0%, #98bff8ff 100%)'}}>
+                        <div className="flex flex-row h-full items-center rounded-[5px]" style={{ background: 'linear-gradient(135deg, #cedcf1ff 0%, #98bff8ff 100%)' }}>
                           <div className="flex items-center justify-center p-5">
                             <img src="/firm1.png" />
                           </div>
@@ -109,7 +108,7 @@ export default function Home() {
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-row h-full items-center ml-3 rounded-[5px]"  style={{background: 'linear-gradient(135deg, #f1ebdeff 0%, #f2c68cff 100%)'}}>
+                        <div className="flex flex-row h-full items-center ml-3 rounded-[5px]" style={{ background: 'linear-gradient(135deg, #f1ebdeff 0%, #f2c68cff 100%)' }}>
                           <div className="flex items-center justify-center p-5">
                             <img src="/firm2.png" />
                           </div>
@@ -122,7 +121,7 @@ export default function Home() {
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-row h-full items-center rounded-[5px] ml-3" style={{background: 'linear-gradient(135deg, #e2f1deff 0%, #b8f694ff 100%)'}}>
+                        <div className="flex flex-row h-full items-center rounded-[5px] ml-3" style={{ background: 'linear-gradient(135deg, #e2f1deff 0%, #b8f694ff 100%)' }}>
                           <div className="flex items-center justify-center p-5">
                             <img src="/firm3.png" />
                           </div>

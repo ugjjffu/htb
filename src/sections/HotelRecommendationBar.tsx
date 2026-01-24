@@ -7,19 +7,19 @@ import {
 } from '@/reducer/HotelReservationReducer';
 import { Carousel, Dropdown, Popover } from 'antd';
 import Calendar from '@/component/Calendar';
-import CityDropDown, { City } from './CityDropDown';
-import CountDropDown from './CountDropDown';
-import LevelOfHotelDropDown from './LevelOfHotelDropDown';
-import SeachGeoBox from './SeachGeoBox';
+import CityDropDown, { City } from '../component/CityDropDown';
+import CountDropDown from '../component/CountDropDown';
+import LevelOfHotelDropDown from '../component/LevelOfHotelDropDown';
+import SeachGeoBox from '../component/SeachGeoBox';
 import { Dayjs } from 'dayjs'; // Import dayjs and Dayjs for type usage
 import SliderComercial from "@/component/SliderCommercial"; // Added missing import
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'; // Added missing import
 import { RobotFilled, RightOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { relative } from 'path';
-import CityButton from './CityButton';
-import RecommendedCityDropDown from './RecommendedCityDropDown';
+import CityButton from '../component/CityButton';
+import RecommendedCityDropDown from '../component/RecommendedCityDropDown';
 import { useDispatch, useSelector } from 'react-redux';
-import HotelItem from './HotelItem';
+import HotelItem from '../component/HotelItem';
 export const HotelRecommendationBar = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const choosenCity = useSelector((s: AppState) => s.choosenCity);
@@ -41,7 +41,7 @@ export const HotelRecommendationBar = () => {
             })
             .then((data) => {
                 // alert(JSON.stringify(data.pois));
-                alert(typeof (data.pois));
+                // alert(typeof (data.pois));
                 globalDispatch({ type: 'SET_RECOMMENDED_HOTEL_DETAILS', payload: JSON.stringify(data.pois) })
                 // sessionStorage.setItem('recommendedCity', JSON.stringify(data.pois));
                 // console.log('recommended cities:', JSON.parse(sessionStorage.getItem('recommendedCity') || ''));
@@ -60,7 +60,7 @@ export const HotelRecommendationBar = () => {
         </div>
     );
     return (
-        <div className='flex flex-col text-xl h-[340px] w-full mt-3.5' id="section10">
+        <section className='flex flex-col text-xl h-[340px] w-full mt-3.5' id="section10">
             <div className='flex flex-row text-xl h-[33px] w-full mt-3.5' id="section10">
                 <span className=''>酒店</span>
                 <span className='text-orange-500'>推荐</span>
@@ -114,6 +114,6 @@ export const HotelRecommendationBar = () => {
                     <CaretDownOutlined></CaretDownOutlined> */}
                 </Carousel>
             </div>
-        </div>
+        </section>
     )
 }

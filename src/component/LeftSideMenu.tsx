@@ -69,7 +69,7 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     console.log('Menu item clicked:', e.key);
   };
-  
+
   // Calculate the required margin-left for the main content block
   const contentMarginLeft = collapsed
     ? SIDER_COLLAPSED_WIDTH
@@ -77,38 +77,38 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
 
   return (
     // Outer Layout Container
-    <Layout>
-      
+    <Layout
+    >
+
       {/* 1. Sidebar (Sider) - Uses Proportional Widths and is Fixed */}
-      <Sider 
-        trigger={null} 
-        collapsible 
+      <Sider
+        trigger={null}
+        collapsible
         collapsed={collapsed}
         theme="dark"
         width={SIDER_EXPANDED_WIDTH}
         collapsedWidth={SIDER_COLLAPSED_WIDTH}
         style={{
           overflow: 'hidden',
-          height: '3000px',
-          position: 'fixed', 
-          left: 0, 
-          top: 0, 
+          position: 'fixed',
+          left: 0,
+          top: 0,
           bottom: 0,
           zIndex: 10000000000,
           // width:100,
         }}
       >
-        <div 
-          className="logo-container" 
+        <div
+          className="logo-container"
           onClick={() => setCollapsed(!collapsed)} // Toggle collapse on logo click
-          style={{ 
-            height: HEADER_HEIGHT, 
-            margin: 0, 
+          style={{
+            height: HEADER_HEIGHT,
+            margin: 0,
             padding: '0 10px',
-            display: 'flex', 
-            alignItems: 'center', 
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: collapsed ? 'center' : 'flex-start',
-            color: 'white', 
+            color: 'white',
             fontWeight: 'bold',
             fontSize: collapsed ? '1.5vw' : '1vw',
             cursor: 'pointer',
@@ -117,7 +117,7 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
         >
           {collapsed ? <MenuOutlined /> : '1/9 App Width'}
         </div>
-        
+
         <Menu
           theme="dark"
           mode="inline"
@@ -127,7 +127,7 @@ const ControllableSidebarLayout: React.FC<ControllableSidebarLayoutProps> = ({ c
           onClick={handleMenuClick}
         />
       </Sider>
-      </Layout>
+    </Layout>
   );
 };
 export default ControllableSidebarLayout;

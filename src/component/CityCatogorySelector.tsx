@@ -18,13 +18,14 @@ const CityButton: React.FC<CityButtonProps> = ({ setState, options, choosenCateg
     return (
         <div className='flex flex-row p-3'>
             {options.map((value, idx) =>
-                <div
+                <button
+                    type='button'
                     key={value}
                     onClick={() => { setState(idx + 1 + ''); }}   // pass the option value
                     className={`px-3 py-1 ml-2 rounded ${choosenCategory === (idx + 1) + '' ? 'text-blue-500' : ''} text-sm`}
                 >
                     {value}
-                </div>
+                </button>
             )
             }
         </div>

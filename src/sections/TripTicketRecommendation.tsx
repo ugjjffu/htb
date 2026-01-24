@@ -7,20 +7,20 @@ import {
 } from '@/reducer/HotelReservationReducer';
 import { Carousel, Dropdown, Popover } from 'antd';
 import Calendar from '@/component/Calendar';
-import CityDropDown, { City } from './CityDropDown';
-import CountDropDown from './CountDropDown';
-import LevelOfHotelDropDown from './LevelOfHotelDropDown';
-import SeachGeoBox from './SeachGeoBox';
+import CityDropDown, { City } from '../component/CityDropDown';
+import CountDropDown from '../component/CountDropDown';
+import LevelOfHotelDropDown from '../component/LevelOfHotelDropDown';
+import SeachGeoBox from '../component/SeachGeoBox';
 import { Dayjs } from 'dayjs'; // Import dayjs and Dayjs for type usage
 import SliderComercial from "@/component/SliderCommercial"; // Added missing import
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'; // Added missing import
 import { RobotFilled, RightOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { relative } from 'path';
-import CityButton from './CityButton';
-import RecommendedCityDropDown from './RecommendedCityDropDown';
+import CityButton from '../component/CityButton';
+import RecommendedCityDropDown from '../component/RecommendedCityDropDown';
 import { useDispatch, useSelector } from 'react-redux';
-import HotelItem from './HotelItem';
-import CitySelectionForTripDropDown from './CitySelectionForTripDropDown';
+import HotelItem from '../component/HotelItem';
+import CitySelectionForTripDropDown from '../component/CitySelectionForTripDropDown';
 import { HotChinaCity } from '@/data/data';
 import { SwapOutlined, RetweetOutlined, LinkOutlined } from '@ant-design/icons'
 import { setPlaceOfDeparture, setShowMoreCityOfPlaceOfDeparture } from '@/reducer/action';

@@ -7,23 +7,23 @@ import {
 } from '@/reducer/HotelReservationReducer';
 import { Carousel, Dropdown, Popover } from 'antd';
 import Calendar from '@/component/Calendar';
-import CityDropDown, { City } from './CityDropDown';
-import CountDropDown from './CountDropDown';
-import LevelOfHotelDropDown from './LevelOfHotelDropDown';
-import SeachGeoBox from './SeachGeoBox';
+import CityDropDown, { City } from '../component/CityDropDown';
+import CountDropDown from '../component/CountDropDown';
+import LevelOfHotelDropDown from '../component/LevelOfHotelDropDown';
+import SeachGeoBox from '../component/SeachGeoBox';
 import { Dayjs } from 'dayjs'; // Import dayjs and Dayjs for type usage
 import SliderComercial from "@/component/SliderCommercial"; // Added missing import
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'; // Added missing import
 import { RobotFilled, RightOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { relative } from 'path';
-import CityButton from './CityButton';
-import RecommendedCityDropDown from './RecommendedCityDropDown';
+import CityButton from '../component/CityButton';
+import RecommendedCityDropDown from '../component/RecommendedCityDropDown';
 import { UseDispatch, useDispatch, useSelector } from 'react-redux';
-import HotelItem from './HotelItem';
+import HotelItem from '../component/HotelItem';
 import { HotelRecommendationBar } from './HotelRecommendationBar';
 import { TripTicketRecommendation } from './TripTicketRecommendation';
 import { AppDispatch } from '@/reducer/store';
-import { PeopleRoomSelector } from './Test';
+import { PeopleRoomSelector } from '../component/Test';
 import { getCurrentLngLat } from '../../utils/Geo';
 import { setAdultsState, setChildrensState, setLevelDropDownOpenState, setLevelState, setOpenCalendarOfCheckOut, setOpenState, setPlaceOfDeparture, setRoomsState, setSelectedCheckOutValue } from '@/reducer/action';
 type TopAreaProps = object
@@ -182,7 +182,6 @@ const TopArea: React.FC<TopAreaProps> = () => {
             const response = await fetch(apiUrl);
             const data = await response.json();
             dispatch(setPlaceOfDeparture(data.regeocode.addressComponent.province));
-            // alert(JSON.stringify(data.regeocode.addressComponent.province));
         }
         f();
     }, [])
@@ -210,7 +209,6 @@ const TopArea: React.FC<TopAreaProps> = () => {
     useEffect(() => {
         const a ={b:"c"};
         const c=JSON.parse(JSON.stringify(a));
-        alert(a===c);
     }, [])
     return (
         <section className="flex space-x-4 justify-center">
