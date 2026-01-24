@@ -73,7 +73,8 @@ export const initialState: AppState = {
   selectedCategoryOfCity: "1",
   isChineseMainland: true,
   showMoreCityOfPlaceOfDeparture: false,
-  placeOfDeparture: '广东'
+  placeOfDeparture: '广东',
+  selectedHotCity:'北京'
 };
 // Define a union type for all possible actions
 export type AppAction =

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { AmapRegeoResponse } from "../../../utils/geo";
+import { AmapRegeoResponse } from "@/../utils/geo";
 // lib/amap-client.ts
 const SERVER_KEY = process.env.AMAP_GEOCODING_KEY||"";
 const BASE_URL = 'https://restapi.amap.com/v3';
@@ -30,7 +30,6 @@ export async function getAreaFromLatLng(
   if (!res.ok) {
     throw new Error(`Amap API error: ${res.statusText}`);
   }
-
   const data: AmapRegeoResponse = await res.json();
   console.log('654321'+JSON.stringify(data));
   return data;

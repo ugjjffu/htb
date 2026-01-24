@@ -15,12 +15,12 @@ const content = (
 );
 const HotelNav = () => {
   // Define a simple function for button clicks (can be replaced with actual routing/logic)
-  const handleAuthClick = (type) => {
+  const handleAuthClick = (type: string) => {
     console.log(`${type} button clicked`);
     // Add your routing or modal logic here
   };
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log('Search for:', value);
     // Add your search functionality here
   };
@@ -60,12 +60,12 @@ const HotelNav = () => {
 
       {/* 3. Login/Register Buttons */}
       <div className="flex items-center gap-2 h-1 text-xs mr-0">
-            <div className='h-5 my-5' onClick={() => handleAuthClick('Login')}>
+            <button className='h-5 my-5' onClick={() => handleAuthClick('Login')}>
             Login
-            </div>
-            <div className='h-5 my-5' onClick={() => handleAuthClick('Register')} type="primary" size="small">
+            </button>
+            <button className='h-5 my-5' onClick={() => handleAuthClick('Register')}>
             Register
-            </div>
+            </button>
             <Popover
                 content={content}
                 title="Hotel Quick Info"

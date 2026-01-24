@@ -23,7 +23,6 @@ import HotelItem from '../component/HotelItem';
 import { HotelRecommendationBar } from './HotelRecommendationBar';
 import { TripTicketRecommendation } from './TripTicketRecommendation';
 import { AppDispatch } from '@/reducer/store';
-import { PeopleRoomSelector } from '../component/Test';
 import { getCurrentLngLat } from '@/../utils/geo';
 import { setAdultsState, setChildrensState, setLevelDropDownOpenState, setLevelState, setOpenCalendarOfCheckOut, setOpenState, setPlaceOfDeparture, setRoomsState, setSelectedCheckOutValue } from '@/reducer/action';
 type TopAreaProps = object

@@ -2,7 +2,7 @@ import { Dropdown } from 'antd';
 import { CityGridProps } from './SelectHotCityGrid';
 import { useDispatch } from 'react-redux';
 import React from 'react';
-
+type City=string;
 interface CityGridWithLettersProps extends CityGridProps {
   letters: string[]; // same length & order as cityList
 }

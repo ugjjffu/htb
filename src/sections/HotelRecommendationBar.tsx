@@ -23,14 +23,13 @@ import HotelItem from '../component/HotelItem';
 export const HotelRecommendationBar = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const choosenCity = useSelector((s: AppState) => s.choosenCity);
-    const showMoreOpen = useSelector((s: AppState) => s.open);
+    const showMoreOpen = useSelector((s: AppState) => s.showMoreOpen);
     const globalDispatch = useDispatch();
-    const host= process.env.NEXT_PUBLIC_HOST;
+    // const host= process.env.NEXT_PUBLIC_HOST;
     useEffect(() => {
         sessionStorage.setItem('123','123');
         // alert(choosenCity);
-        fetch(
-            host+`/api/AmapGetRecommendedCity?city=${encodeURIComponent(
+        fetch(`/api/AmapGetRecommendedCity?city=${encodeURIComponent(
                 `${choosenCity}`
             )}&page=1&pageSize=500`,
             { cache: 'no-store' }
