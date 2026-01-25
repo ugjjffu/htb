@@ -13,10 +13,10 @@
     "@reduxjs/toolkit": "^2.11.2",
     "antd": "^5.28.0",
     "lodash": "^4.17.23",
-    "next": "16.0.1",
+    "next": "^16.1.4",
     "next-auth": "^5.0.0-beta.30",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "react-redux": "^9.2.0",
     "zustand": "^5.0.9"
   },
