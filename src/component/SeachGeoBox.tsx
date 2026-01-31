@@ -118,7 +118,7 @@ const App: React.FC = () => {
         />
         <Dropdown
           trigger={['click']}
-          placement='bottomCenter'
+          placement='bottom'
           autoAdjustOverflow={false}
           open={search_box_open}
           onOpenChange={() => dispatch({ type: 'SET_SEARCHBOX_OPEN', payload: !search_box_open })}

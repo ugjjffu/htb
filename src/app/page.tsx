@@ -13,7 +13,6 @@ import { store } from '@/reducer/store/index'
 import { Provider } from 'react-redux';
 import { BankOutlined } from '@ant-design/icons';
 const { Header, Sider, Content } = Layout;
-
 // Define your custom font variables (can be simplified if not needed globally)
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -155,7 +154,35 @@ export default function Home() {
                 </div>
               </div>
               <div id="section14" className="bg-yellow-600 text-white text-xl flex items-center h-[300px] justify-center"> {/* Set a sample height */}
-                Right - Section 4
+                <button
+                  onClick={async () => {
+                    try {
+                      const response = await fetch('/api/checkout', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          priceId: 'price_1SveOORFnc3WS904wbnSHC04', // Replace with your actual Stripe Price ID
+                        }),
+                      })
+
+                      const data = await response.json()
+
+                      if (data.url) {
+                        window.location.href = data.url
+                      } else {
+                        alert('Error: ' + (data.error || 'Unknown error'))
+                      }
+                    } catch (error) {
+                      console.error('Error:', error)
+                      alert('Failed to create checkout session')
+                    }
+                  }}
+                  className="bg-white text-yellow-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                >
+                  Buy Now - Test Stripe
+                </button>
               </div>
             </div>
           </div>
