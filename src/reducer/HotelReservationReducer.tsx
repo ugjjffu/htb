@@ -11,11 +11,11 @@ export interface AppState {
   selectedCity: City;
   openCityOptions: boolean;
   openCalendarOfCheckIn: boolean;
-  panelValueOfCheckIn: Dayjs;
+  panelValueOfCheckIn: number;
   openCalendarOfCheckOut: boolean;
-  panelValueOfCheckOut: Dayjs;
-  selectedCheckInValue: Dayjs | null;
-  selectedCheckOutValue: Dayjs | null;
+  panelValueOfCheckOut: number;
+  selectedCheckInValue: number;
+  selectedCheckOutValue: number;
   rooms: number;
   adults: number;
   childrens: number;
@@ -46,12 +46,12 @@ export const initialState: AppState = {
   openCityOptions: false,
   openCalendarOfCheckIn: false,
   // Initializing with dayjs() ensures the state is of type Dayjs
-  panelValueOfCheckIn: dayjs(),
+  panelValueOfCheckIn: Date.now(),
   openCalendarOfCheckOut: false,
   // Initializing with dayjs() ensures the state is of type Dayjs
-  panelValueOfCheckOut: dayjs(),
-  selectedCheckInValue: null, // Initializing to null for optional selection
-  selectedCheckOutValue: null, // Initializing to null for optional selection
+  panelValueOfCheckOut: Date.now(),
+  selectedCheckInValue: Date.now(), // Initializing to null for optional selection
+  selectedCheckOutValue: Date.now(), // Initializing to null for optional selection
   rooms: 1, // Default value, matching your original useState
   adults: 1, // Default value, matching your original useState
   childrens: 0, // Default value, matching your original useState
@@ -74,7 +74,7 @@ export const initialState: AppState = {
   isChineseMainland: true,
   showMoreCityOfPlaceOfDeparture: false,
   placeOfDeparture: '广东',
-  selectedHotCity:'北京'
+  selectedHotCity:'北京',
 };
 // Define a union type for all possible actions
 export type AppAction =
@@ -82,11 +82,11 @@ export type AppAction =
   | { type: 'SET_SELECTED_CITY'; payload: City }
   | { type: 'SET_OPEN_CITY_OPTIONS'; payload: boolean }
   | { type: 'SET_OPEN_CALENDAR_CHECKIN'; payload: boolean }
-  | { type: 'SET_PANEL_VALUE_CHECKIN'; payload: Dayjs }
+  | { type: 'SET_PANEL_VALUE_CHECKIN'; payload: number }
   | { type: 'SET_OPEN_CALENDAR_CHECKOUT'; payload: boolean }
-  | { type: 'SET_PANEL_VALUE_CHECKOUT'; payload: Dayjs }
-  | { type: 'SET_SELECTED_CHECKIN_VALUE'; payload: Dayjs | null }
-  | { type: 'SET_SELECTED_CHECKOUT_VALUE'; payload: Dayjs | null }
+  | { type: 'SET_PANEL_VALUE_CHECKOUT'; payload: number }
+  | { type: 'SET_SELECTED_CHECKIN_VALUE'; payload: number}
+  | { type: 'SET_SELECTED_CHECKOUT_VALUE'; payload: number}
   | { type: 'SET_ROOMS'; payload: number }
   | { type: 'SET_ADULTS'; payload: number }
   | { type: 'SET_CHILDRENS'; payload: number }

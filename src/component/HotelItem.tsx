@@ -34,9 +34,9 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
   })();
   const rand = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
   return (
-    <div className='flex flex-col  w-60 h-70 overflow-hidden mr-3 rounded-xl overflow-hidden text-sm font-bold border border-gray-200 items-center shadow-lg'>
+    <div className='flex flex-col  min-[871px]:w-60 max-[871px]:w-[100%] h-70 max-[871px]:h-90 overflow-hidden mr-3 rounded-xl overflow-hidden text-sm font-bold border border-gray-200 shadow-lg'>
       <div className="relative inline-block">
-        <img src={data?.photos[0].url} className='w-60 h-40 rounded-t-xl'></img>
+        <img src={data?.photos[0].url} className='w-[100%] h-40 max-[871px]:h-60 rounded-t-xl'></img>
         <span className="absolute top-1 right-2 translate-x-[30%] -translate-y-[30%]
                    text-white text-[10px] font-bold
                    px-1 py-0.5 rounded-sm opacity-70">
@@ -57,7 +57,7 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
         {/* {data.photos[0].url} */}
         {/* {data?.type}  */}
         <div className='flex flex-row items-baseline w-full'>
-          <div className='text-gray-500'>{rand(100, 2500)}条点评</div>
+          <div className='text-gray-500'>{stringToRange500_1000(data?.name)+254}条点评</div>
           <div className='ml-auto text-xl text-blue-500'>{"¥" + stringToRange500_1000(data?.name)}</div>
         </div>
       </div>

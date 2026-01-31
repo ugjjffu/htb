@@ -13,10 +13,10 @@ import { HomeOutlined,CompassOutlined} from '@ant-design/icons';
 const SearchResultItem: React.FC<Tip> = (item:Tip) => {
     return (
         <section className={`w-full h-8 p-1 flex flex-row justify-center items-center`}>
-            <div className={`w-10 h-full`}>
+            <div className={`w-3 h-full`}>
                 {item.typecode==="100100"||item.typecode==="100200"?<HomeOutlined></HomeOutlined>:<CompassOutlined></CompassOutlined>}
             </div>
-            <div className={`h-full ml-3 w-110`}>
+            <div className={`h-full ml-3 w-70`}>
                 {item.address}
             </div>
             <div className='mr-auto text-align: center; w-8'>{item.typecode==="100100"||item.typecode==="100200"?'酒店':'地标'}</div>

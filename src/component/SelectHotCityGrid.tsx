@@ -22,13 +22,13 @@ const CityGrid: React.FC<CityGridProps> = ({ onSelectHotCity, selectedHotCity, c
       const dispatch = useDispatch();
     return (
         // The custom class 'city-grid' handles the rectangular layout
-        <section className={`grid grid-cols-6 pl-0 w-[590px]`}>
+        <section className={`grid grid-cols-3 pl-0 w-[85%] mx-auto`}>
             {cityList.map((city) => (
                 <button
                     key={'recommended' + city}
                     style={{width:`${width}px`}}
                     className={`h-8 border ${hoveredCity === city ? style : "border-white"} flex items-center`}
-                    onClick={() => {onSelectHotCity(city);dispatch(setShowMoreCityOfPlaceOfDeparture(false));}}
+                    onClick={() => {onSelectHotCity(city);alert(city);dispatch(setShowMoreCityOfPlaceOfDeparture(false));}}
                 >
                     {city}
                 </button>

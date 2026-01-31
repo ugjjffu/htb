@@ -38,10 +38,10 @@ export default function Home() {
   return (
     // 1. Outer Layout wraps the entire structure
     <Provider store={store}>
-      <Layout className={`${geistSans.variable} ${geistMono.variable} font-sans`} style={{ minHeight: '100vh', minWidth: 1400, backgroundColor: "white" }}>
+      <Layout className={`${geistSans.variable} ${geistMono.variable} font-sans`} style={{ minHeight: '100vh', minWidth: 320, backgroundColor: "white" }}>
 
         {/* 2. Left Aside Menu (Sider) */}
-        <Sider
+        {/* <Sider
           trigger={null} // Don't use AntD's default trigger, we'll use the one in the header
           collapsible
           collapsed={collapsed}
@@ -50,21 +50,21 @@ export default function Home() {
           className=''
         >
           <Menu collapsed={collapsed} setCollapsed={setCollapsed}></Menu>
-        </Sider>
+        </Sider> */}
 
         {/* 3. Inner Layout for Header and Content (sits next to Sider) */}
-        <Layout
+        {/* <Layout
           // Automatically calculate margin based on collapsed state
           style={{ marginLeft: collapsed ? 48 : 180, transition: 'margin-left 0.2s' }}
-        >
+        > */}
 
-          {/* 4. Top Navigator (Header) */}
-          <Header
-            style={{ padding: 0, background: colorBgContainer }}
-            className="flex items-center"
-          >
-            {/* Collapse/Expand Trigger Button - Placed in the header for visibility */}
-            {/* {React.createElement(
+        {/* 4. Top Navigator (Header) */}
+        <Header
+          style={{ padding: 0, background: colorBgContainer }}
+          className="flex items-center"
+        >
+          {/* Collapse/Expand Trigger Button - Placed in the header for visibility */}
+          {/* {React.createElement(
               collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
                 className: 'trigger',
@@ -77,64 +77,59 @@ export default function Home() {
                 },
               },
             )} */}
-            {/* Your Nav component (Top Bar content) */}
-            <Nav></Nav>
-          </Header>
+          {/* Your Nav component (Top Bar content) */}
+          <Nav></Nav>
+        </Header>
 
-          {/* 5. Main Content Area */}
-          <Content
-            style={{ margin: '24px 16px 0', overflow: 'initial', backgroundColor: "white" }}
-          >
-            <div className="h-full flex flex-col items-center mt-3">
-              <TopArea ></TopArea>
-              {/* The rest of your content area */}
-              <div className="w-full p-6 bg-white rounded-lg shadow-md"> {/* Adjusted width/padding for content container */}
-                <div id="section13" className="bg-white text-white text-xl flex items-center h-[152px] justify-center">
-                  <div className="w-full h-full">
-                    <div className="flex flex-col h-full">
-                      <span className="text-black font-bold w-full">企业商旅</span>
-                      <div className="flex flex-row w-full h-full">
-
-                        <div className="flex flex-row h-full items-center rounded-[5px]" style={{ background: 'linear-gradient(135deg, #cedcf1ff 0%, #98bff8ff 100%)' }}>
-                          <div className="flex items-center justify-center p-5">
-                            <img src="/firm1.png" />
-                          </div>
-                          <div className="flex flex-col justify-center">
-                            <div className="text-black">一站式企业差旅服务</div>
-                            <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
-                              <div className="block mt-1">
-                                一站式企业差旅服务海量差旅产品，全流程服务，智能管控，助企业成本节省高达30%
-                              </div>
-                            </div>
-                          </div>
+        {/* 5. Main Content Area */}
+        <Content
+          style={{ margin: '24px 16px 0', overflow: 'initial', backgroundColor: "white" }}
+        >
+          <div className="flex flex-col items-center mt-3 min-w-[320px]">
+            <TopArea ></TopArea>
+            {/* The rest of your content area */}
+            <div className="w-[85%] bg-white rounded-lg shadow-md"> {/* Adjusted width/padding for content container */}
+              <div id="section13" className="flex-col bg-white text-white text-xl flex items-center min-[920px]:h-[152px]">
+                <span className="text-black font-bold w-full">企业商旅</span>
+                <div className="flex max-[920px]:flex-col w-full h-full mt-2 max-[920px]:space-y-5">
+                  <div className="flex flex-row h-full items-center rounded-[5px] max-[920px]:rounded-[30px]" style={{ background: 'linear-gradient(135deg, #cedcf1ff 0%, #98bff8ff 100%)' }}>
+                    <div className="flex items-center justify-center p-5">
+                      <img src="/firm1.png" />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <div className="text-black">一站式企业差旅服务</div>
+                      <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
+                        <div className="block mt-1">
+                          一站式企业差旅服务海量差旅产品，全流程服务，智能管控，助企业成本节省高达30%
                         </div>
-                        <div className="flex flex-row h-full items-center ml-3 rounded-[5px]" style={{ background: 'linear-gradient(135deg, #f1ebdeff 0%, #f2c68cff 100%)' }}>
-                          <div className="flex items-center justify-center p-5">
-                            <img src="/firm2.png" />
-                          </div>
-                          <div className="flex flex-col justify-center">
-                            <div className="text-black">公对公结算</div>
-                            <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
-                              <div className="block mt-1">
-                                15分钟极速开通公司账户、30+20天超长账期，自助对账，统一开票、配送！
-                              </div>
-                            </div>
-                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-row h-full items-center rounded-[5px] max-[920px]:rounded-[30px]" style={{ background: 'linear-gradient(135deg, #f1ebdeff 0%, #f2c68cff 100%)' }}>
+                    <div className="flex items-center justify-center p-5">
+                      <img src="/firm2.png" />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <div className="text-black">公对公结算</div>
+                      <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
+                        <div className="block mt-1">
+                          15分钟极速开通公司账户、30+20天超长账期，自助对账，统一开票、配送！
                         </div>
-                        <div className="flex flex-row h-full items-center rounded-[5px] ml-3" style={{ background: 'linear-gradient(135deg, #e2f1deff 0%, #b8f694ff 100%)' }}>
-                          <div className="flex items-center justify-center p-5">
-                            <img src="/firm3.png" />
-                          </div>
-                          <div className="flex flex-col justify-center">
-                            <div className="text-black">企业方案量身定制</div>
-                            <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
-                              <div className="block mt-1">
-                                强大的产品技术&服务解决方案 ，支持企业规模在500人以上中大型企业定制
-                              </div>
-                            </div>
-                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-row h-full items-center rounded-[5px] max-[920px]:rounded-[30px]" style={{ background: 'linear-gradient(135deg, #e2f1deff 0%, #b8f694ff 100%)' }}>
+                    <div className="flex items-center justify-center p-5">
+                      <img src="/firm3.png" />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <div className="text-black">企业方案量身定制</div>
+                      <div className="h-10 mt-0" style={{ fontSize: "14px" }}>
+                        <div className="block mt-1">
+                          强大的产品技术&服务解决方案 ，支持企业规模在500人以上中大型企业定制
                         </div>
-                        {/* <div className="flex flex-row">
+                      </div>
+                      {/* <div className="flex flex-row">
                           <div className="flex flex-row bg-blue-200 h-full items-center">
                             <div className="flex items-center justify-center">
                               <BankOutlined className="flex items-center justify-center  text-[30px] w-[45px] h-[45px] bg-blue-500 rounded-[50%]" style={{
@@ -155,18 +150,18 @@ export default function Home() {
                           </div>
                         </div> */}
 
-                      </div>
                     </div>
                   </div>
                 </div>
-                <div id="section14" className="bg-yellow-600 text-white text-xl flex items-center h-[300px] justify-center"> {/* Set a sample height */}
-                  Right - Section 4
-                </div>
+              </div>
+              <div id="section14" className="bg-yellow-600 text-white text-xl flex items-center h-[300px] justify-center"> {/* Set a sample height */}
+                Right - Section 4
               </div>
             </div>
-          </Content>
-        </Layout>
+          </div>
+        </Content>
       </Layout>
+      {/* </Layout> */}
     </Provider>
   );
 }

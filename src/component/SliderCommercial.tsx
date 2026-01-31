@@ -6,13 +6,13 @@ import { Carousel, Typography } from 'antd';
 const { Title } = Typography;
 
 const LanternSlideTailwind = () => (
-  <section className='sticky top-3 w-107 h-170 h-screen'>
+  <section className='sticky max-xs:w-[85%] top-3  h-170 h-screen mx-auto'>
     <Carousel
       autoplay
       autoplaySpeed={3000} // <-- This is the change: sets the delay to 2000ms (2 seconds)
       effect="scrollx"
       dotPosition="bottom"
-      className="rounded-lg overflow-hidden h-screen" // Added rounded corners to the carousel itself
+      className="rounded-lg overflow-hidden h-screen min-xs:max-w-107" // Added rounded corners to the carousel itself
     >
       {/* Slide 1: City Breaks */}
       <div className="

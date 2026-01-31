@@ -46,9 +46,9 @@ const CityGrid:React.FC<CityGridProps>=({onSelectCity,selectedCity})=>{
     return (
         // The custom class 'city-grid' handles the rectangular layout
         <section className="city-grid">
-        {cityList.map((city) => (
+        {cityList.map((city,i) => (
             <span
-                key={'recommended'+city}
+                key={'recommended'+city+i}
                 className={`w-26.3 h-8 border ${hoveredCity===city?style:"border-white"}`}
                 onClick={() => onSelectCity(city)}
                 onMouseEnter={() => setHoveredCity(city)}

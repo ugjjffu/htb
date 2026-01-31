@@ -25,7 +25,7 @@ const CityButton: React.FC<CityButtonProps> = ({ buttonSize, buttonText }) => {
     <button
       type='button'
       style={{ width: "60px", height: "28px", fontSize: "16px" }}
-      className={`mr-2 ${choosenCity === buttonText ? 'bg-blue-500' : 'bg-white hover:bg-[rgb(242,248,254)]'} rounded-[3px]`}
+      className={`${choosenCity === buttonText ? 'bg-blue-500' : 'bg-white hover:bg-[rgb(242,248,254)]'} rounded-[3px]`}
       onClick={() => { dispatch({ type: 'SET_CHOOSEN_CITY', payload: buttonText }); }}
     >
       {buttonText}

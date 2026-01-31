@@ -16,13 +16,13 @@ const CityButton: React.FC<CityButtonProps> = ({ setState, options, choosenCateg
     // const globalDispatch = useDispatch();
     // const showMoreOpen = useSelector((s: AppState) => s.showMoreOpen);
     return (
-        <div className='flex flex-row p-3'>
+        <div className='flex flex-row p-1 col-span-1'>
             {options.map((value, idx) =>
                 <button
                     type='button'
                     key={value}
                     onClick={() => { setState(idx + 1 + ''); }}   // pass the option value
-                    className={`px-3 py-1 ml-2 rounded ${choosenCategory === (idx + 1) + '' ? 'text-blue-500' : ''} text-sm`}
+                    className={`px-1 py-1 rounded ${choosenCategory === (idx + 1) + '' ? 'text-blue-500' : ''} text-sm`}
                 >
                     {value}
                 </button>

@@ -18,14 +18,14 @@ import {Tip} from "@/component/SearchResultItem"
 function SearchDropdownEmpty(): ReactNode {
   const searchInput = useSelector((s: AppState) => s.searchInput);
   return (
-    <div className='w-125 bg-white border border-gray-200 rounded-md shadow-lg overflow-auto flex flex-col justify-center items-center text-red-500'>
+    <div className='w-90 bg-white border border-gray-200 rounded-md shadow-lg overflow-auto flex flex-col justify-center items-center text-red-500'>
       there isnt any search result of your input [{searchInput}]
     </div>
   )
 }
 function SearchHotelSeleton(): ReactNode {
   return (
-    <div className='w-125  h-40 bg-white border border-gray-200 rounded-md shadow-lg overflow-auto flex flex-col jusify-center items-center'>
+    <div className='w-90  h-40 bg-white border border-gray-200 rounded-md shadow-lg overflow-auto flex flex-col jusify-center items-center'>
       {Array.from({ length: 5 }, (_, index) => index).map((index) => (
         <LoadingBar key={index + "LoadingBar"} />
       ))}
@@ -48,7 +48,7 @@ function SearchSuggestions({ tips }: { tips: Tip[] }): ReactNode {
       ></SearchResultItem>
     ));
   return (
-    <div className='w-125  h-40 bg-white border border-gray-200 rounded-md shadow-lg overflow-auto flex flex-col jusify-center items-center'>
+    <div className='w-90  h-40 bg-white border border-gray-200 rounded-md shadow-lg overflow-auto flex flex-col jusify-center items-center'>
       {tips.length != 0 ?
         content : <div />}
     </div>
@@ -93,7 +93,6 @@ const App: React.FC = () => {
       }
     }, 1000), []);
   const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    controllerRef.current?.abort();
     dispatch({ type: 'SET_SEARCH_INPUT', payload: event.target.value });
     dispatch({ type: 'SET_ISLOADING', payload: true });
     if (event.target.value != '') {
@@ -119,11 +118,11 @@ const App: React.FC = () => {
         />
         <Dropdown
           trigger={['click']}
-          placement='bottomRight'
+          placement='bottomCenter'
           autoAdjustOverflow={false}
           open={search_box_open}
           onOpenChange={() => dispatch({ type: 'SET_SEARCHBOX_OPEN', payload: !search_box_open })}
-          popupRender={isLoading === true && isGeoInputBoxFocus ? SearchHotelSeleton : (tips.length != 0 ? ()=><SearchSuggestions tips={tips}></SearchSuggestions> : () => { return <SearchDropdownEmpty></SearchDropdownEmpty> })}
+          popupRender={isLoading === true && isGeoInputBoxFocus ? ()=><SearchHotelSeleton/> : (tips.length != 0 ? ()=><SearchSuggestions tips={tips}></SearchSuggestions> : () => { return <SearchDropdownEmpty></SearchDropdownEmpty> })}
         >
         </Dropdown>
       </div>

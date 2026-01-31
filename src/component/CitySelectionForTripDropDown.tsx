@@ -27,7 +27,7 @@ const SelectHotCityWithFirstLetterGrid: React.FC<CityGridWithLetterProps> = ({ o
     return (
         <div className='flex flex-row'>
             <div className='h-8 w-4 text-center flex items-center'>{letter}</div>
-            <div className='ml-4'>
+            <div className=''>
                 <SelectHotCity
                     onSelectHotCity={onSelectHotCity}
                     selectedHotCity={selectedHotCity}
@@ -40,14 +40,14 @@ const SelectHotCityWithFirstLetterGrid: React.FC<CityGridWithLetterProps> = ({ o
 };
 const MultipleSelectHotCityWithFirstLetterGrid: React.FC<MutipleCityGridWithLetterProps> = ({ selectedHotCity, width, letters, globalDispatch, hotCityMap }) => {
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col items-center'>
             {letters.map((ltr: string) =>
                 hotCityMap[ltr]?.length ? (
                     <SelectHotCityWithFirstLetterGrid
                         key={ltr}
                         selectedHotCity={selectedHotCity}
                         onSelectHotCity={(value: string) =>
-                            globalDispatch({ type: 'SET_SELECTED_HOT_CITY', payload: value })
+                            globalDispatch({ type: 'SET_PLACE_OF_DEPARTURE', payload: value })
                         }
                         cityList={hotCityMap[ltr]}
                         width={width}
@@ -66,7 +66,7 @@ const CityGrid: React.FC = ({ }) => {
     const isChineseMainland = useSelector((s: AppState) => s.isChineseMainland);
     const selectedHotCity = useSelector((s: AppState) => s.selectedHotCity);
     return (
-        <div className="flex flex-row w-197 min-w-[57px] overflow-y-scroll bg-white border-gray-300 border-md rounded-md shadow-xl">
+        <div className="flex flex-row w-100 min-w-[57px] overflow-y-scroll bg-white border-gray-300 border-md rounded-md shadow-xl">
             <div className='flex flex-col w-27 bg-gray-200 p-2'>
                 <div className='p-2 bg-blue-500 mt-2 rounded-md text-white'
                     onClick={() => { globalDispatch({ type: 'SET_IS_CHINESE_MAINLAND', payload: true }) }}
@@ -74,17 +74,17 @@ const CityGrid: React.FC = ({ }) => {
                 <div className='p-2 bg-blue-500 mt-2 rounded-md text-white'
                     onClick={() => { globalDispatch({ type: 'SET_IS_CHINESE_MAINLAND', payload: false }) }}
                 >
-                    <span className='block'>{"国际以及"}</span>
+                    <span className='block'>{"国际与"}</span>
                     <span className='block' >{"中国港澳台"}</span>
                 </div>
             </div>
             <div className='flex flex-col w-full'>
                 <div className='flex flex-row'>
                     {isChineseMainland ?
-                        <CityCatogorySelector options={['热门', 'ABCDEF', 'GHIJ', 'KLMN', 'PQRSTUVW', 'XYZ']} setState={setSelectedCategoryOfCity} choosenCategory={categoryOfCity}></CityCatogorySelector> : <CityCatogorySelector options={['国际*中国港澳台热门', '亚洲', '欧洲', '美洲', '非洲', '大洋洲']} setState={setSelectedCategoryOfCity} choosenCategory={categoryOfCity}></CityCatogorySelector>}
+                        <CityCatogorySelector options={['热门', 'ABCDEF', 'GHIJ', 'KLMN', 'PQRSTUVW', 'XYZ']} setState={setSelectedCategoryOfCity} choosenCategory={categoryOfCity}></CityCatogorySelector> : <CityCatogorySelector options={['热门', '亚洲', '欧洲', '美洲', '非洲', '大洋洲']} setState={setSelectedCategoryOfCity} choosenCategory={categoryOfCity}></CityCatogorySelector>}
                 </div>
                 <div className='w-full h-px bg-gray-300' />
-                <div className='flex items-center justify-center w-full h-full'>
+                <div className='w-full h-60 overflow-y-auto '>
                     {isChineseMainland && categoryOfCity === Category.Hot ? <SelectHotCity selectedHotCity={selectedHotCity} onSelectHotCity={(value: string) => { globalDispatch(setSelectedHotCity(value)) }} cityList={hotCities} width='94'></SelectHotCity> : <div />}
                     {!isChineseMainland && categoryOfCity === Category.Hot ? <SelectHotCity selectedHotCity={selectedHotCity} onSelectHotCity={(value: string) => { globalDispatch(setSelectedHotCity(value)) }} cityList={nonMainlandHotCities} width='94'></SelectHotCity> : <div />}
                     {isChineseMainland && categoryOfCity === Category.ABCDEF ? <MultipleSelectHotCityWithFirstLetterGrid selectedHotCity={selectedHotCity} hotCityMap={hotCityMap} width='78' letters={['A', 'B', 'C', 'D', 'E', 'F']} globalDispatch={globalDispatch}></MultipleSelectHotCityWithFirstLetterGrid> : <div />}

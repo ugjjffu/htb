@@ -5,7 +5,7 @@ const HorizontalPair: React.FC = () => {
         <section className={`w-full h-8 p-1 flex flex-row justify-center items-center`}>
             <div className={`w-10 h-full ${style.pulsing_box}`}>
             </div>
-            <div className={`h-full ml-3 w-110 ${style.pulsing_box}`}>
+            <div className={`h-full ml-3 w-80 ${style.pulsing_box}`}>
             </div>
         </section>
     );

@@ -29,7 +29,7 @@ const colorMap: Record<number, string> = { 1: "bg-[rgb(246,59,46)]", 2: "bg-[rgb
 const OriginCitySelectedPopupRender = () => (
     <CitySelectionForTripDropDown></CitySelectionForTripDropDown>
 );
-interface TripTicketProps { seq: number; startDate: DateTuple; endDate: DateTuple; price: number; priceBeforeDiscount: number; placeOfDeparture: string; destination: string,pictureOfDestination:string }
+interface TripTicketProps { seq: number; startDate: DateTuple; endDate: DateTuple; price: number; priceBeforeDiscount: number; placeOfDeparture: string; destination: string, pictureOfDestination: string }
 
 type Range<N extends number, Result extends number[] = []> = Result['length'] extends N ? Result[number] : Range<N, [...Result, Result['length']]>;
 type Month = Exclude<Range<13>, 0>;
@@ -44,14 +44,14 @@ async function getSHA256Number(str: string): Promise<number> {
     const intArray = new Int32Array(hashBuffer);
     return Math.abs(intArray[0]);
 }
-export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDiscount, placeOfDeparture, destination,pictureOfDestination }: TripTicketProps) => {
+export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDiscount, placeOfDeparture, destination, pictureOfDestination }: TripTicketProps) => {
     return (
         <div className='relative flex flex-row h-[83px] w-full'>
             <div className={`absolute top-1 left-0 text-black text-[10px] font-bold rounded-tr-xl rounded-br-xl px-2 py-1 ${colorMap[seq]}`}>
                 {seq}
             </div>
             <img alt='' src={pictureOfDestination} className='w-[80px] h-[80px] rounded-[7px]'></img>
-            <div className='flex flex-col px-4 w-[70%] h-full text-[13px]'>
+            <div className='grid grid-rows-3 px-4 w-[75%] max-[744px]:w-[80%] h-full text-[13px]'>
                 <div className='flex flex-row items-baseline'>
                     <div className='font-bold'>
                         {placeOfDeparture}
@@ -90,7 +90,7 @@ export const TripTicketRecommendation = () => {
         const a = async () => {
             const hash_code = await getSHA256Number(placeOfDeparture);
             setTripTicket([cities[hash_code % cities.length], cities[(hash_code % cities.length + 1) % cities.length], cities[(hash_code % cities.length + 2) % cities.length], cities[(hash_code % cities.length + 3) % cities.length], cities[(hash_code % cities.length + 4) % cities.length]]);
-            setPictureOfDestination([`/city_pictures/${hash_code % 10+1}.webp`,`/city_pictures/${(hash_code+1) % 10+1}.webp`,`/city_pictures/${(hash_code+2) % 10+1}.webp`,`/city_pictures/${(hash_code+3) % 10+1}.webp`,`/city_pictures/${(hash_code+4) % 10+1}.webp`]);
+            setPictureOfDestination([`/city_pictures/${hash_code % 10 + 1}.webp`, `/city_pictures/${(hash_code + 1) % 10 + 1}.webp`, `/city_pictures/${(hash_code + 2) % 10 + 1}.webp`, `/city_pictures/${(hash_code + 3) % 10 + 1}.webp`, `/city_pictures/${(hash_code + 4) % 10 + 1}.webp`]);
         }
         a();
     }, [placeOfDeparture]);
@@ -99,27 +99,29 @@ export const TripTicketRecommendation = () => {
             <div className='flex flex-row text-xl h-[33px] w-full mt-3.5 items-baseline' id="section10">
                 <span className=''>当季</span>
                 <span className='text-orange-500'>热推</span>
-                <div className='text-sm ml-5'>出发地</div>
-                <div className='flex w-[340px]'>
-                    <Dropdown
-                        autoAdjustOverflow={false}
-                        // Control the visibility manually
-                        placement="bottomLeft"
-                        open={showMoreOpen}
-                        onOpenChange={(newOpen: boolean) => { dispatch(setShowMoreCityOfPlaceOfDeparture(newOpen)); }}
-                        trigger={['click']}
-                        // Inject the custom content
-                        popupRender={OriginCitySelectedPopupRender}
-                    >
-                        <input
-                            className='ml-2 w-15' value={placeOfDeparture}
-                            onChange={e => dispatch(setPlaceOfDeparture(e.target.value))}
-                        ></input>
-                    </Dropdown>
+                <div className="flex items-center ml-auto items-baseline">
+                    <div className='text-sm min-[744px]:ml-5 max-[744px]:mr-2'>出发地</div>
+                    <div className='flex'>
+                        <Dropdown
+                            autoAdjustOverflow={false}
+                            // Control the visibility manually
+                            placement="bottomRight"
+                            open={showMoreOpen}
+                            onOpenChange={(newOpen: boolean) => { dispatch(setShowMoreCityOfPlaceOfDeparture(newOpen)); }}
+                            trigger={['click']}
+                            // Inject the custom content
+                            popupRender={()=><OriginCitySelectedPopupRender></OriginCitySelectedPopupRender>}
+                        >
+                            <input
+                                className='ml-2 w-15' value={placeOfDeparture}
+                                onChange={e => dispatch(setPlaceOfDeparture(e.target.value))}
+                            ></input>
+                        </Dropdown>
+                    </div>
                 </div>
             </div>
-            <div className='flex flex-row w-full h-137 space-x-4'>
-                <div className='w-[48%]  flex flex-col bg-[rgb(243,245,253)] rounded-[10px] p-2'>
+            <div className='flex max-[744px]:flex-col w-full min-[744px]:space-x-4 max-[744px]:space-y-4'>
+                <div className='min-[744px]:w-[48%]  flex flex-col bg-[rgb(243,245,253)] rounded-[10px] p-2'>
 
                     <div className='flex flex-row items-center '>
                         <img src="/TripTicketRecomendation2.png" width="96px" height="76px"></img>
@@ -133,13 +135,18 @@ export const TripTicketRecommendation = () => {
                         </div>
                     </div>
                 </div>
-                <div className='w-[48%] bg-[rgb(243,245,253)] flex flex-col rounded-[10px] p-2'>
-                    <div className='flex flex-row bg-[rgb(243,245,253)] items-center'>
+                <div className='min-[744px]:w-[48%]  flex flex-col bg-[rgb(243,245,253)] rounded-[10px] p-2 min-[744px]:ml-auto'>
+
+                    <div className='flex flex-row items-center '>
                         <img src="/TripTicketRecomendation2.png" width="96px" height="76px"></img>
                         <div>周末畅游 特价机票</div>
                     </div>
                     <div className='flex flex-col p-2 h-full w-full'>
-                        <div></div>
+                        <div className='space-y-2'>
+                            {Array.from({ length: 5 }, (_, i) => (
+                                <TripTicketItem key={i} seq={i + 1} startDate={startDate} endDate={endDate} price={300} priceBeforeDiscount={500} placeOfDeparture={placeOfDeparture} destination={TripTicket[i]} pictureOfDestination={pictureOfDestination[i]} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
