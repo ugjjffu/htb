@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
-
+import { createCheckoutSession } from "@/app/actions/checkout"
+import { getSessionFromRequest } from '@/lib/auth/session';
+// import { redirect } from 'next/navigation';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2026-01-28.clover',
 })
@@ -12,10 +14,14 @@ export default async function handler(
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
-
+  const secret = process.env.AUTH_SECRET!
   try {
+    const sessionVeri = await getSessionFromRequest(req);
+    if (!sessionVeri) {
+        // redirect('/sign-in');
+        return res.redirect(302,'/sign-in');
+    }
     const { priceId } = req.body
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -28,7 +34,6 @@ export default async function handler(
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/cancel`,
     })
-
     res.status(200).json({ url: session.url })
   } catch (error) {
     console.error('Stripe error:', error)

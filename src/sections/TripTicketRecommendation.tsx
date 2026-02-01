@@ -46,7 +46,32 @@ async function getSHA256Number(str: string): Promise<number> {
 }
 export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDiscount, placeOfDeparture, destination, pictureOfDestination }: TripTicketProps) => {
     return (
-        <div className='relative flex flex-row h-[83px] w-full'>
+        <div className='relative flex flex-row h-[83px] w-full cursor-pointer'
+            onClick={async () => {
+                try {
+                    const response = await fetch('/api/dynamicCheckout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            amountPrice: 30000, // Replace with your actual Stripe Price ID
+                        }),
+                    })
+
+                    const data = await response.json()
+
+                    if (data.url) {
+                        window.location.href = data.url
+                    } else {
+                        alert('Error: ' + (data.error || 'Unknown error'))
+                    }
+                } catch (error) {
+                    console.error('fail to check identification,you will jump to login page after several seconds', error)
+                    window.location.href = '/sign-in'
+                }
+            }}
+        >
             <div className={`absolute top-1 left-0 text-black text-[10px] font-bold rounded-tr-xl rounded-br-xl px-2 py-1 ${colorMap[seq]}`}>
                 {seq}
             </div>
@@ -110,7 +135,7 @@ export const TripTicketRecommendation = () => {
                             onOpenChange={(newOpen: boolean) => { dispatch(setShowMoreCityOfPlaceOfDeparture(newOpen)); }}
                             trigger={['click']}
                             // Inject the custom content
-                            popupRender={()=><OriginCitySelectedPopupRender></OriginCitySelectedPopupRender>}
+                            popupRender={() => <OriginCitySelectedPopupRender></OriginCitySelectedPopupRender>}
                         >
                             <input
                                 className='ml-2 w-15' value={placeOfDeparture}

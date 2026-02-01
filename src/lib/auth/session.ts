@@ -2,6 +2,7 @@ import { compare, hash } from 'bcryptjs';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NewUser } from '@/lib/db/schema';
+import { NextApiRequest } from 'next';
 
 const key = new TextEncoder().encode(process.env.AUTH_SECRET);
 const SALT_ROUNDS = 10;
@@ -39,6 +40,11 @@ export async function verifyToken(input: string) {
 
 export async function getSession() {
   const session = (await cookies()).get('session')?.value;
+  if (!session) return null;
+  return await verifyToken(session);
+}
+export async function getSessionFromRequest(req: NextApiRequest ) {
+  const session = req.cookies?.session;
   if (!session) return null;
   return await verifyToken(session);
 }
