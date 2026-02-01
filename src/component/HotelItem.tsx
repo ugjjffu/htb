@@ -46,7 +46,11 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
               amountPrice: 30000, // Replace with your actual Stripe Price ID
             }),
           })
-
+          if (response.status === 401) {
+            alert('请先登录')
+            window.location.href = '/sign-in'
+            return
+          }
           const data = await response.json()
 
           if (data.url) {
@@ -55,8 +59,8 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
             alert('Error: ' + (data.error || 'Unknown error'))
           }
         } catch (error) {
-          console.error('fail to check identification,you will jump to login page after several seconds', error)
-          window.location.href='/sign-in'
+          // console.error('fail to check identification,you will jump to login page after several seconds', error)
+          // window.location.href='/sign-in'
         }
       }}
     >

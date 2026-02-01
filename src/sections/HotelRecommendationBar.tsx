@@ -24,21 +24,6 @@ export const HotelRecommendationBar = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const choosenCity = useSelector((s: AppState) => s.choosenCity);
     const showMoreOpen = useSelector((s: AppState) => s.showMoreOpen);
-    const [width, setWidth] = useState(
-        0
-    );
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-
-        // Set initial
-        handleResize();
-
-        // Listen
-        window.addEventListener('resize', handleResize);
-
-        // Cleanup
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     const globalDispatch = useDispatch();
     // const host= process.env.NEXT_PUBLIC_HOST;
@@ -99,63 +84,56 @@ export const HotelRecommendationBar = () => {
                         buttonSize='123'
                         buttonText={state.recommendedSelectedCity}
                     ></CityButton>
-                    {
-                        width >= 871 && <CityButton
-                            buttonSize='123'
-                            buttonText='广州'
-                        ></CityButton>
-                    }
-                    {
-                        width >= 871 && <CityButton
-                            buttonSize='123'
-                            buttonText='上海'
-                        ></CityButton>
-                    }
+                    <CityButton
+                        buttonSize='123'
+                        buttonText='广州'
+                    ></CityButton>
+                    <CityButton
+                        buttonSize='123'
+                        buttonText='上海'
+                    ></CityButton>
                     <CityButton
                         buttonSize='123'
                         buttonText='北京'
                     ></CityButton>
                 </div>
             </div>
-            <div className={`${width >= 871 ? 'h-[310px]' : ''} mt-3`}>
-                {
-                    width < 871 && (
-                        <Carousel
-                            dots={{ className: 'my-dots' }}
-                            autoplay
-                            adaptiveHeight
-                            vertical
-                            verticalSwiping
-                            slidesToShow={1}  // 改为 1，每次只显示一组
-                            slidesToScroll={1}  // 改为 1，每次滚动一组
-                        >
-                            <div className='flex flex-col'>
-                                {Array.from({ length: 3 }, (_, i) => (
-                                    <HotelItem key={`recommendedHotel-${i}`} seq={i} />
-                                ))}
-                            </div>
-                            <div className='flex flex-col'>
-                                {Array.from({ length: 3 }, (_, i) => (
-                                    <HotelItem key={`recommendedHotel-${i + 3}`} seq={i + 3} />
-                                ))}
-                            </div>
-                        </Carousel>
-                    )}
-                {
-                    width >= 871 && (
-                        <Carousel
-                            dots={{ className: 'my-dots' }}
-                            autoplay
-                            adaptiveHeight
-                            slidesToShow={3}  // 改为 1，每次只显示一组
-                            slidesToScroll={3}  // 改为 1，每次滚动一组
-                        >
-                            {Array.from({ length: 6 }, (_, i) => (
+            <div className={"min-[871px]:h-[310px]"}>
+                <div className='min-[871px]:hidden'>
+                    <Carousel
+                        dots={{ className: 'my-dots' }}
+                        autoplay
+                        adaptiveHeight
+                        vertical
+                        verticalSwiping
+                        slidesToShow={1}  // 改为 1，每次只显示一组
+                        slidesToScroll={1}  // 改为 1，每次滚动一组
+                    >
+                        <div className='flex flex-col'>
+                            {Array.from({ length: 3 }, (_, i) => (
                                 <HotelItem key={`recommendedHotel-${i}`} seq={i} />
                             ))}
-                        </Carousel>
-                    )}
-
+                        </div>
+                        <div className='flex flex-col'>
+                            {Array.from({ length: 3 }, (_, i) => (
+                                <HotelItem key={`recommendedHotel-${i + 3}`} seq={i + 3} />
+                            ))}
+                        </div>
+                    </Carousel>
+                </div>
+                <div className='max-[871px]:hidden'>
+                    <Carousel
+                        dots={{ className: 'my-dots' }}
+                        autoplay
+                        adaptiveHeight
+                        slidesToShow={3}  // 改为 1，每次只显示一组
+                        slidesToScroll={3}  // 改为 1，每次滚动一组
+                    >
+                        {Array.from({ length: 6 }, (_, i) => (
+                            <HotelItem key={`recommendedHotel-${i}`} seq={i} />
+                        ))}
+                    </Carousel>
+                </div>
             </div>
             {/* <CaretUpOutlined></CaretUpOutlined>
                     <CaretDownOutlined></CaretDownOutlined> */}

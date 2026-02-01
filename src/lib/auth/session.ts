@@ -32,10 +32,19 @@ export async function signToken(payload: SessionData) {
 }
 
 export async function verifyToken(input: string) {
-  const { payload } = await jwtVerify(input, key, {
-    algorithms: ['HS256'],
-  });
-  return payload as SessionData;
+  try {
+
+    const { payload } = await jwtVerify(input, key, {
+      algorithms: ['HS256'],
+    });
+    if (!payload || typeof payload !== 'object' || !payload.userId) {
+      return null;
+    }
+    return payload as SessionData;
+  } catch (error) {
+    // 验证失败时严格返回 null，不能返回 {} 或 undefined
+    return null;
+  }
 }
 
 export async function getSession() {
@@ -43,7 +52,7 @@ export async function getSession() {
   if (!session) return null;
   return await verifyToken(session);
 }
-export async function getSessionFromRequest(req: NextApiRequest ) {
+export async function getSessionFromRequest(req: NextApiRequest) {
   const session = req.cookies?.session;
   if (!session) return null;
   return await verifyToken(session);

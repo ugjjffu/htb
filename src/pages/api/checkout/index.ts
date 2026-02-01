@@ -19,7 +19,7 @@ export default async function handler(
     const sessionVeri = await getSessionFromRequest(req);
     if (!sessionVeri) {
         // redirect('/sign-in');
-        return res.redirect(302,'/sign-in');
+        return res.status(401).json({ error: 'Unauthorized' });
     }
     const { priceId } = req.body
     const session = await stripe.checkout.sessions.create({

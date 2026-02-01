@@ -58,7 +58,11 @@ export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDisc
                             amountPrice: 30000, // Replace with your actual Stripe Price ID
                         }),
                     })
-
+                    if (response.status === 401) {
+                        alert('请先登录')
+                        window.location.href = '/sign-in'
+                        return
+                    }
                     const data = await response.json()
 
                     if (data.url) {
@@ -67,8 +71,8 @@ export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDisc
                         alert('Error: ' + (data.error || 'Unknown error'))
                     }
                 } catch (error) {
-                    console.error('fail to check identification,you will jump to login page after several seconds', error)
-                    window.location.href = '/sign-in'
+                    // alert('fail to check identification,you will jump to login page after several seconds')
+                    // window.location.href = '/sign-in'
                 }
             }}
         >

@@ -1,23 +1,19 @@
-// auth.ts（项目根目录）
-import NextAuth from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
+// auth.ts
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: process.env.AUTH_SECRET,  // V5 用 AUTH_SECRET
-  
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        return null
+      authorize: async (credentials) => {
+        // 最简单的硬编码验证
+        if (credentials.password === "demo") {
+          return { id: "1", name: "User", email: "user@example.com" };
+        }
+        return null;
       },
     }),
   ],
-  
-  pages: {
-    signIn: '/api/auth/signin',  // 默认登录页
-  },
-})
+  session: { strategy: "jwt" }, // 必须，否则默认要数据库
+  secret: process.env.AUTH_SECRET, // 必须
+});
