@@ -49,7 +49,7 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
           if (response.status === 401) {
             alert('请先登录')
             window.location.href = '/sign-in'
-            return
+            return ;
           }
           const data = await response.json()
 

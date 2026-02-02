@@ -24,7 +24,7 @@ export async function createCheckoutSession(priceId: string) {
   redirect(session.url!)
 }
 
-export const GENERIC_HOTEL_PRODUCT = 'prod_TtRG7aFheIxGhz' // 事先创建好
+// export const GENERIC_HOTEL_PRODUCT = 'prod_TtRG7aFheIxGhz' // 事先创建好
 
 export async function dynamicCheckoutsession(amountCent: number, currency = 'usd') {
   // 2. 现场生成价格（临时 Price）
@@ -33,7 +33,7 @@ export async function dynamicCheckoutsession(amountCent: number, currency = 'usd
     line_items: [
       {
         price_data: {
-          product: GENERIC_HOTEL_PRODUCT,   // 挂在同一 Product
+          product: 'prod_TtRG7aFheIxGhz',   // 挂在同一 Product
           unit_amount: amountCent,          // 动态金额
           currency,
         },

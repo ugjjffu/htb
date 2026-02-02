@@ -37,9 +37,6 @@ export async function verifyToken(input: string) {
     const { payload } = await jwtVerify(input, key, {
       algorithms: ['HS256'],
     });
-    if (!payload || typeof payload !== 'object' || !payload.userId) {
-      return null;
-    }
     return payload as SessionData;
   } catch (error) {
     // 验证失败时严格返回 null，不能返回 {} 或 undefined
@@ -50,6 +47,7 @@ export async function verifyToken(input: string) {
 export async function getSession() {
   const session = (await cookies()).get('session')?.value;
   if (!session) return null;
+  console.log(JSON.stringify(session));
   return await verifyToken(session);
 }
 export async function getSessionFromRequest(req: NextApiRequest) {
@@ -57,7 +55,7 @@ export async function getSessionFromRequest(req: NextApiRequest) {
   if (!session) return null;
   return await verifyToken(session);
 }
-
+console.log("session set");
 export async function setSession(user: NewUser) {
   const expiresInOneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
   const session: SessionData = {
@@ -70,5 +68,8 @@ export async function setSession(user: NewUser) {
     httpOnly: true,
     secure: true,
     sameSite: 'lax',
+    path: '/'
   });
+  // const check = (await cookies()).get('session');
+  // console.log('Session immediately after set:', check ? 'exists' : 'missing');
 }
