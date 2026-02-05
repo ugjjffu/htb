@@ -13,7 +13,7 @@ const IntroBar: React.FC = ({
                 <div className="flex max-[920px]:flex-col w-full h-full mt-2 max-[920px]:space-y-5">
                     <div className="flex flex-row h-full items-center rounded-[5px] max-[920px]:rounded-[30px]" style={{ background: 'linear-gradient(135deg, #cedcf1ff 0%, #98bff8ff 100%)' }}>
                         <div className="flex items-center justify-center p-5">
-                            <img src="/firm1.png" />
+                            <img alt="/fallback.webp" src="/firm1.png" />
                         </div>
                         <div className="flex flex-col justify-center">
                             <div className="text-black">一站式企业差旅服务</div>
@@ -26,7 +26,7 @@ const IntroBar: React.FC = ({
                     </div>
                     <div className="flex flex-row h-full items-center rounded-[5px] max-[920px]:rounded-[30px]" style={{ background: 'linear-gradient(135deg, #f1ebdeff 0%, #f2c68cff 100%)' }}>
                         <div className="flex items-center justify-center p-5">
-                            <img src="/firm2.png" />
+                            <img alt="/fallback.webp" src="/firm2.png" />
                         </div>
                         <div className="flex flex-col justify-center">
                             <div className="text-black">公对公结算</div>
@@ -39,7 +39,7 @@ const IntroBar: React.FC = ({
                     </div>
                     <div className="flex flex-row h-full items-center rounded-[5px] max-[920px]:rounded-[30px]" style={{ background: 'linear-gradient(135deg, #e2f1deff 0%, #b8f694ff 100%)' }}>
                         <div className="flex items-center justify-center p-5">
-                            <img src="/firm3.png" />
+                            <img alt="/fallback.webp" src="/firm3.png" />
                         </div>
                         <div className="flex flex-col justify-center">
                             <div className="text-black">企业方案量身定制</div>

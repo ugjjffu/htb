@@ -382,11 +382,13 @@ const TopArea: React.FC<TopAreaProps> = () => {
                                 style={{
                                     backgroundImage: `\hotelSlider_1.png`,
                                 }}
+                                alt="/fallback.webp"
                             ></img>
                             <img className='h-33' src='\hotelSlider_2.jpg'
                                 style={{
                                     backgroundImage: `\hotelSlider_2.jpg`,
                                 }}
+                                alt="/fallback.webp"
                             ></img>
                         </Carousel>
                     </div>

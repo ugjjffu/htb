@@ -22,7 +22,7 @@ const LanternSlideTailwind = () => (
           flex items-center justify-center 
           rounded-lg transition-all duration-300 hover:bg-blue-600
         ">
-        <img src="/p1_slider.webp" className='h-full w-full'></img>
+        <img alt="/fallback.webp" src="/p1_slider.webp" className='h-full w-full'></img>
       </div>
 
       {/* Slide 2: 4th Night Free */}
@@ -35,7 +35,7 @@ const LanternSlideTailwind = () => (
           rounded-lg transition-all duration-300 hover:bg-green-600
           magrin-top:30px
         ">
-        <img src="/p2_slider.webp" className='h-full  w-full'></img>
+        <img alt="/fallback.webp" src="/p2_slider.webp" className='h-full  w-full'></img>
       </div>
 
       {/* Slide 3: Beach Resorts */}
@@ -47,7 +47,7 @@ const LanternSlideTailwind = () => (
           flex items-center justify-center
           rounded-lg transition-all duration-300 hover:bg-yellow-500
         ">
-        <img src="/p3_slider.webp" className='h-full  w-full'></img>
+        <img alt="/fallback.webp" src="/p3_slider.webp" className='h-full  w-full'></img>
       </div>
 
       {/* Slide 4: Luxury Hotels */}
@@ -59,7 +59,7 @@ const LanternSlideTailwind = () => (
           flex items-center justify-center
           rounded-lg transition-all duration-300 hover:bg-red-600
         ">
-        <img src="/p4_slider.webp" className='h-full  w-full'></img>
+        <img alt="/fallback.webp" src="/p4_slider.webp" className='h-full  w-full'></img>
       </div>
     </Carousel>
   </section>

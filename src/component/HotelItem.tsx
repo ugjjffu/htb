@@ -65,7 +65,7 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
       }}
     >
       <div className="relative inline-block">
-        <img src={data?.photos[0].url} className='w-[100%] h-40 max-[871px]:h-60 rounded-t-xl'></img>
+        <img alt="/fallback.webp" src={data?.photos[0].url} className='w-[100%] h-40 max-[871px]:h-60 rounded-t-xl'></img>
         <span className="absolute top-1 right-2 translate-x-[30%] -translate-y-[30%]
                    text-white text-[10px] font-bold
                    px-1 py-0.5 rounded-sm opacity-70">

@@ -79,7 +79,7 @@ export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDisc
             <div className={`absolute top-1 left-0 text-black text-[10px] font-bold rounded-tr-xl rounded-br-xl px-2 py-1 ${colorMap[seq]}`}>
                 {seq}
             </div>
-            <img alt='' src={pictureOfDestination} className='w-[80px] h-[80px] rounded-[7px]'></img>
+            <img alt="/fallback.webp" src={pictureOfDestination} className='w-[80px] h-[80px] rounded-[7px]'></img>
             <div className='grid grid-rows-3 px-4 w-[75%] max-[744px]:w-[80%] h-full text-[13px]'>
                 <div className='flex flex-row items-baseline'>
                     <div className='font-bold'>
@@ -153,7 +153,7 @@ export const TripTicketRecommendation = () => {
                 <div className='min-[744px]:w-[48%]  flex flex-col bg-[rgb(243,245,253)] rounded-[10px] p-2'>
 
                     <div className='flex flex-row items-center '>
-                        <img src="/TripTicketRecomendation2.png" width="96px" height="76px"></img>
+                        <img alt="/fallback.webp" src="/TripTicketRecomendation2.png" width="96px" height="76px"></img>
                         <div>周末畅游 特价机票</div>
                     </div>
                     <div className='flex flex-col p-2 h-full w-full'>
@@ -167,7 +167,7 @@ export const TripTicketRecommendation = () => {
                 <div className='min-[744px]:w-[48%]  flex flex-col bg-[rgb(243,245,253)] rounded-[10px] p-2 min-[744px]:ml-auto'>
 
                     <div className='flex flex-row items-center '>
-                        <img src="/TripTicketRecomendation2.png" width="96px" height="76px"></img>
+                        <img alt="/fallback.webp" src="/TripTicketRecomendation2.png" width="96px" height="76px"></img>
                         <div>周末畅游 特价机票</div>
                     </div>
                     <div className='flex flex-col p-2 h-full w-full'>
