@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,   // 底层即调用 critters
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',   // 所有域名，极度宽松
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  }
 };
 
 export default nextConfig;

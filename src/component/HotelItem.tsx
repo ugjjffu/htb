@@ -1,5 +1,5 @@
 'use client'
-import { Image } from 'antd'
+import Image from 'next/image';
 import React, { useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -49,7 +49,7 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
           if (response.status === 401) {
             alert('请先登录')
             window.location.href = '/sign-in'
-            return ;
+            return;
           }
           const data = await response.json()
 
@@ -65,7 +65,14 @@ const HotelItem: React.FC<CityButtonProps> = ({ seq }) => {
       }}
     >
       <div className="relative inline-block">
-        <img alt="/fallback.webp" src={data?.photos[0].url} className='w-[100%] h-40 max-[871px]:h-60 rounded-t-xl'></img>
+        <div className="block w-full h-40 max-[871px]:h-60 rounded-t-xl overflow-hidden">
+          <Image
+            fill
+            src={data?.photos[0].url ?? '/fallback.webp'}
+            alt="酒店票_hotel_ticket"
+            className="object-cover rounded-t-xl"
+          />
+        </div>
         <span className="absolute top-1 right-2 translate-x-[30%] -translate-y-[30%]
                    text-white text-[10px] font-bold
                    px-1 py-0.5 rounded-sm opacity-70">

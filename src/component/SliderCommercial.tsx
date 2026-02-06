@@ -2,7 +2,7 @@ import React from 'react';
 import { Carousel, Typography } from 'antd';
 
 // IMPORTANT: We assume Ant Design and Tailwind CSS are correctly configured in the environment.
-
+import Image from 'next/image';
 const { Title } = Typography;
 
 const LanternSlideTailwind = () => (
@@ -16,17 +16,19 @@ const LanternSlideTailwind = () => (
     >
       {/* Slide 1: City Breaks */}
       <div className="
+          relative
           h-screen                         /* Increased height slightly */
           text-white  
           text-center 
           flex items-center justify-center 
           rounded-lg transition-all duration-300 hover:bg-blue-600
         ">
-        <img alt="/fallback.webp" src="/p1_slider.webp" className='h-full w-full'></img>
+        <Image fill alt="city break" src="/p1_slider.webp"></Image>
       </div>
 
       {/* Slide 2: 4th Night Free */}
       <div className="
+                relative
           h-screen
           text-white 
           text-center 
@@ -35,11 +37,12 @@ const LanternSlideTailwind = () => (
           rounded-lg transition-all duration-300 hover:bg-green-600
           magrin-top:30px
         ">
-        <img alt="/fallback.webp" src="/p2_slider.webp" className='h-full  w-full'></img>
+        <Image fill alt="city break" src="/p2_slider.webp" className='h-full  w-full'></Image>
       </div>
 
       {/* Slide 3: Beach Resorts */}
       <div className="
+                relative
           h-screen
           text-white 
           text-center 
@@ -47,11 +50,12 @@ const LanternSlideTailwind = () => (
           flex items-center justify-center
           rounded-lg transition-all duration-300 hover:bg-yellow-500
         ">
-        <img alt="/fallback.webp" src="/p3_slider.webp" className='h-full  w-full'></img>
+        <Image fill alt="city break" src="/p3_slider.webp" className='h-full  w-full'></Image>
       </div>
 
       {/* Slide 4: Luxury Hotels */}
       <div className="
+                relative
           h-screen
           text-white 
           text-center 
@@ -59,7 +63,7 @@ const LanternSlideTailwind = () => (
           flex items-center justify-center
           rounded-lg transition-all duration-300 hover:bg-red-600
         ">
-        <img alt="/fallback.webp" src="/p4_slider.webp" className='h-full  w-full'></img>
+        <Image fill alt="city break" src="/p4_slider.webp" className='h-full  w-full'></Image>
       </div>
     </Carousel>
   </section>

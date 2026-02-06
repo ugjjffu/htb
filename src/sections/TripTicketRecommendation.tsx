@@ -25,6 +25,7 @@ import { HotChinaCity } from '@/data/data';
 import { SwapOutlined, RetweetOutlined, LinkOutlined } from '@ant-design/icons'
 import { setPlaceOfDeparture, setShowMoreCityOfPlaceOfDeparture } from '@/reducer/action';
 import { cities } from '@/data/data'
+import Image from 'next/image';
 const colorMap: Record<number, string> = { 1: "bg-[rgb(246,59,46)]", 2: "bg-[rgb(255,139,38)]", 3: "bg-[rgb(255,182,62)]", 4: "bg-[rgb(153,174,202)]", 5: "bg-[rgb(153,174,202)]", };
 const OriginCitySelectedPopupRender = () => (
     <CitySelectionForTripDropDown></CitySelectionForTripDropDown>
@@ -79,7 +80,10 @@ export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDisc
             <div className={`absolute top-1 left-0 text-black text-[10px] font-bold rounded-tr-xl rounded-br-xl px-2 py-1 ${colorMap[seq]}`}>
                 {seq}
             </div>
-            <img alt="/fallback.webp" src={pictureOfDestination} className='w-[80px] h-[80px] rounded-[7px]'></img>
+            <Image
+                width={80}
+                height={80}
+                alt="/image break" src={pictureOfDestination} className='w-[80px] h-[80px] rounded-[7px]'></Image>
             <div className='grid grid-rows-3 px-4 w-[75%] max-[744px]:w-[80%] h-full text-[13px]'>
                 <div className='flex flex-row items-baseline'>
                     <div className='font-bold'>

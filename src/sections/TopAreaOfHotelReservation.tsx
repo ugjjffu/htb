@@ -28,6 +28,7 @@ import { setAdultsState, setChildrensState, setLevelDropDownOpenState, setLevelS
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import IntroBar from "@/sections/IntroBar"
+import Image from 'next/image';
 type TopAreaProps = object
 const CheckOutCalendar: () => React.ReactElement = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -369,27 +370,35 @@ const TopArea: React.FC<TopAreaProps> = () => {
                             </button>
                         </div>
                     </div>
-                    <div id="section9" className="w-[100%] h-33 text-white text-xl rounded-[15px] overflow-hidden mt-3.5">
+                    <div id="section9" className="relative w-[100%] h-33 text-white text-xl rounded-[15px] overflow-hidden mt-3.5">
                         <Carousel
                             id='654'
                             autoplay
                             autoplaySpeed={3000} // <-- This is the change: sets the delay to 2000ms (2 seconds)
                             effect="scrollx"
                             dotPosition="bottom"
-                            className="rounded-lg h-33 rounded-lg" // Added rounded corners to the carousel itself
+                            className="relative rounded-lg h-33 rounded-lg" // Added rounded corners to the carousel itself
                         >
-                            <img className='h-33' src='\hotelSlider_1.png'
-                                style={{
-                                    backgroundImage: `\hotelSlider_1.png`,
-                                }}
-                                alt="/fallback.webp"
-                            ></img>
-                            <img className='h-33' src='\hotelSlider_2.jpg'
-                                style={{
-                                    backgroundImage: `\hotelSlider_2.jpg`,
-                                }}
-                                alt="/fallback.webp"
-                            ></img>
+                            <div key="hotelSlider_1" className="relative h-33">
+                                <Image
+                                    fill
+                                    sizes="100vw"
+                                    src="/hotelSlider_1.png"
+                                    alt="slide 1"
+                                    className="object-cover"
+                                    priority
+                                />
+                            </div>
+
+                            <div key="hotelSlider_2" className="relative h-33">
+                                <Image
+                                    fill
+                                    sizes="100vw"
+                                    src="/hotelSlider_2.jpg"
+                                    alt="slide 2"
+                                    className="object-cover"
+                                />
+                            </div>
                         </Carousel>
                     </div>
                     <div id="section10" className="flex max-lg:flex-col w-1/1 min-h-[76px] rounded-[15px] overflow-hidden position:relative mt-3.5 space-y-2 space-x-4" style={{ position: "relative" }}>
