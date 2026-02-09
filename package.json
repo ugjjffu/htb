@@ -13,6 +13,7 @@
     "@ant-design/icons": "^6.1.0",
     "@reduxjs/toolkit": "^2.11.2",
     "@stripe/stripe-js": "^8.7.0",
+    "@vercel/analytics": "^1.6.1",
     "antd": "^5.28.0",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",

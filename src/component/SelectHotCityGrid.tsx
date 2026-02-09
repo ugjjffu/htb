@@ -28,7 +28,7 @@ const CityGrid: React.FC<CityGridProps> = ({ onSelectHotCity, selectedHotCity, c
                     key={'recommended' + city}
                     style={{width:`${width}px`}}
                     className={`h-8 border ${hoveredCity === city ? style : "border-white"} flex items-center`}
-                    onClick={() => {onSelectHotCity(city);alert(city);dispatch(setShowMoreCityOfPlaceOfDeparture(false));}}
+                    onClick={() => {onSelectHotCity(city);dispatch(setShowMoreCityOfPlaceOfDeparture(false));}}
                 >
                     {city}
                 </button>
