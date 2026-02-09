@@ -1,5 +1,6 @@
 import AntdRegistry from '@/app/antd-registry';
 import { ConfigProvider } from 'antd';
+import { Analytics } from "@vercel/analytics/next"
 
 export default function RootLayout({
   children,
@@ -18,6 +19,7 @@ export default function RootLayout({
         <AntdRegistry>
           <ConfigProvider theme={{}}>
             {children}
+            <Analytics />
           </ConfigProvider>
         </AntdRegistry>
       </body>
