@@ -40,8 +40,8 @@ const HotelNav = () => {
     >
       {/* 1. Web Logo (Hotel Ticket Booking) */}
       <Flex align="center">
-        <HomeOutlined style={{ fontSize: '24px', color: '#1890ff' }} />
-        <Title level={3} style={{ margin: 0, marginLeft: 8, color: '#1890ff' }}>
+        <HomeOutlined style={{ fontSize: 'clamp(12px, 4vw, 24px)', color: '#1890ff' }} />
+        <Title level={3} style={{ fontSize: 'clamp(16px, 5vw, 28px)',margin: 0, marginLeft: 8, color: '#1890ff' }}>
           TicketBooker
         </Title>
       </Flex>
