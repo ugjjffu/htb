@@ -59,44 +59,45 @@ export const HotelRecommendationBar = () => {
         </div>
     );
     return (
-        <section className='flex flex-col text-xl min-[871px]:h-[340px] w-full mt-3.5' id="section10">
-            <div className='flex flex-row text-xl h-[33px] w-full mt-3.5' id="section10">
+        <section className='flex flex-col text-xl max-[600px]:text-base min-[871px]:h-[340px] w-full mt-3.5' id="section10">
+            <div className='flex flex-row h-[33px] w-full mt-3.5' id="section10">
                 <span className=''>酒店</span>
                 <span className='text-orange-500'>推荐</span>
-                <div className='flex flex-row-reverse ml-auto min-[871px]:w-[340px]'>
-                    <Dropdown
-                        autoAdjustOverflow={false}
-                        // Control the visibility manually
-                        placement="bottomRight"
-                        open={showMoreOpen}
-                        onOpenChange={(newOpen: boolean) => { globalDispatch({ type: 'SET_SHOW_MORE_OPEN', payload: newOpen }); }}
-                        trigger={['click']}
-                        // Inject the custom content
-                        popupRender={recommendedCitySelectedPopupRender}
-                    >
+                <Dropdown
+                    autoAdjustOverflow={false}
+                    // Control the visibility manually
+                    placement="bottomRight"
+                    open={showMoreOpen}
+                    onOpenChange={(newOpen: boolean) => { globalDispatch({ type: 'SET_SHOW_MORE_OPEN', payload: newOpen }); }}
+                    trigger={['click']}
+                    // Inject the custom content
+                    popupRender={recommendedCitySelectedPopupRender}
+                >
+                    <div className='flex flex-row-reverse ml-auto w-[340px] max-[871px]:w-[280px] text-[16px] max-[600px]:text-[13px]'>
                         <button
-                            style={{ width: "60px", height: "28px", fontSize: "16px", cursor: "pointer" }}
+                            style={{ width: "60px", height: "28px", cursor: "pointer" }}
                         >
                             更多{showMoreOpen ? <CaretUpOutlined className="text-blue-500 text-sm" /> : <CaretDownOutlined className="text-sm" />}
                         </button>
-                    </Dropdown>
-                    <CityButton
-                        buttonSize='123'
-                        buttonText={state.recommendedSelectedCity}
-                    ></CityButton>
-                    <CityButton
-                        buttonSize='123'
-                        buttonText='广州'
-                    ></CityButton>
-                    <CityButton
-                        buttonSize='123'
-                        buttonText='上海'
-                    ></CityButton>
-                    <CityButton
-                        buttonSize='123'
-                        buttonText='北京'
-                    ></CityButton>
-                </div>
+                        <CityButton
+                            buttonSize='123'
+                            buttonText={state.recommendedSelectedCity}
+                        ></CityButton>
+                        <CityButton
+                            buttonSize='123'
+                            buttonText='广州'
+                        ></CityButton>
+                        <CityButton
+                            buttonSize='123'
+                            buttonText='上海'
+                        ></CityButton>
+                        <CityButton
+                            buttonSize='123'
+                            buttonText='北京'
+                        ></CityButton>
+                    </div>
+                </Dropdown>
+
             </div>
             <div className={"min-[871px]:h-[310px]"}>
                 <div className='min-[871px]:hidden'>

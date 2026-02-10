@@ -84,11 +84,11 @@ export const TripTicketItem = ({ seq, startDate, endDate, price, priceBeforeDisc
                 width={80}
                 height={80}
                 alt="/image break" src={pictureOfDestination} className='w-[80px] h-[80px] rounded-[7px]'></Image>
-            <div className='grid grid-rows-3 px-4 w-[75%] max-[744px]:w-[80%] h-full text-[13px]'>
+            <div className='grid grid-rows-3 px-4 w-[75%] max-[744px]:w-[80%] h-full text-base max-[600px]:text-[11px]'>
                 <div className='flex flex-row items-baseline'>
                     <div className='font-bold'>
                         {placeOfDeparture}
-                        <SwapOutlined style={{ fontSize: '16px', color: 'black' }} />
+                        <SwapOutlined style={{color: 'black' }} className='' />
                         {destination}
                     </div>
                     <div className='flex flex-row ml-auto items-baseline text-blue-500'>¥<span className='text-[16px] font-bold'>{price}</span><span className=''>起</span></div>
@@ -128,7 +128,7 @@ export const TripTicketRecommendation = () => {
         a();
     }, [placeOfDeparture]);
     return (
-        <div className='flex flex-col text-xl w-full mt-3.5'>
+        <div className='flex flex-col text-base w-full mt-3.5'>
             <div className='flex flex-row text-xl h-[33px] w-full mt-3.5 items-baseline' id="section10">
                 <span className=''>当季</span>
                 <span className='text-orange-500'>热推</span>

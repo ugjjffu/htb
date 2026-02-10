@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'http',  // 添加 http 支持
+        hostname: '**',
+        port: '',
+        pathname: '/**',
+      },
     ],
   }
 };

@@ -5,17 +5,17 @@ import { MinusOutlined, PlusOutlined, UserOutlined, HomeOutlined, CaretDownOutli
 
 const { Text } = Typography;
 interface Props {
-  open:boolean;
-  setOpen:(status:boolean)=>void;
-  rooms:number;
-  setRooms:(num:number)=>void;
-  adults:number;
-  setAdults:(num:number)=>void;
-  childrens:number;
-  setChildrens:(num:number)=>void;
+  open: boolean;
+  setOpen: (status: boolean) => void;
+  rooms: number;
+  setRooms: (num: number) => void;
+  adults: number;
+  setAdults: (num: number) => void;
+  childrens: number;
+  setChildrens: (num: number) => void;
 }
 // --- 1. Define the Component and State ---
-const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adults, setAdults,childrens, setChildrens}) => {
+const RoomSelectorDropdown: React.FC<Props> = ({ open, setOpen, rooms, setRooms, adults, setAdults, childrens, setChildrens }) => {
 
   // --- 2. Handlers for Input/Button Actions ---
 
@@ -23,7 +23,7 @@ const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adu
     // Perform final validation/action here (e.g., save selections)
     console.log(`Rooms: ${rooms}, Adults: ${adults}, Children: ${childrens}`);
     // Manually close the dropdown by setting the controlled state to false
-    setOpen(false); 
+    setOpen(false);
   };
 
   const handleRoomsChange = (value: number | null) => {
@@ -37,7 +37,7 @@ const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adu
   // --- 3. Custom Content Renderer ---
   const popupContent = (
     <div className="p-4 bg-white border border-gray-200 rounded-md shadow-lg w-72">
-      
+
       {/* 3.1. Custom Input Row Component */}
       <RoomInputRow
         icon={<HomeOutlined />}
@@ -47,7 +47,7 @@ const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adu
         min={1}
         max={10}
       />
-      
+
       <RoomInputRow
         icon={<UserOutlined />}
         label="Adults"
@@ -68,8 +68,8 @@ const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adu
 
       {/* 3.2. Confirm Button on the right */}
       <div className="flex justify-end pt-3 mt-3 border-t border-gray-100">
-        <Button 
-          type="primary" 
+        <Button
+          type="primary"
           onClick={handleConfirm}
           className="w-full" // Make button full width in this example
         >
@@ -81,23 +81,25 @@ const RoomSelectorDropdown: React.FC<Props> = ({open,setOpen,rooms, setRooms,adu
 
   // --- 4. Render Trigger (What the user clicks) ---
   const renderTrigger = (
-      <Space onClick={() => setOpen(!open)}>
-        {`${rooms} 间, ${adults+childrens} 人`}
-        {open ? <CaretUpOutlined className="text-blue-500 text-sm" /> : <CaretDownOutlined className="text-sm"/>}
-      </Space>
+    <Space onClick={() => setOpen(!open)}>
+      {`${rooms} 间, ${adults + childrens} 人`}
+      {open ? <CaretUpOutlined className="text-blue-500 text-sm" /> : <CaretDownOutlined className="text-sm" />}
+    </Space>
   );
-
   return (
     <Dropdown
       autoAdjustOverflow={false}
       // Control the visibility manually
+      placement="bottom"
       open={open}
       onOpenChange={setOpen}
       trigger={['click']}
       // Inject the custom content
       popupRender={() => popupContent}
     >
-      {renderTrigger}
+      <div className="flex flex-row items-center">
+        {renderTrigger}
+      </div>
     </Dropdown>
   );
 };
@@ -119,32 +121,32 @@ const RoomInputRow: React.FC<RoomInputRowProps> = ({ icon, label, value, onChang
       {icon}
       <Text strong>{label}</Text>
     </Space>
-    
+
     <Space>
       {/* Minus Button */}
-      <Button 
-        type="default" 
+      <Button
+        type="default"
         size="small"
         icon={<MinusOutlined />}
         onClick={() => onChange(value > min ? value - 1 : min)}
         disabled={value === min}
       />
-      
+
       {/* Input Number - Displays current value */}
       <InputNumber
-        value={value} 
-        
+        value={value}
+
         onChange={onChange}
         min={min}
         max={max}
         step={1}
         controls={false} // Hide Antd's default controls
-        className="w-12 text-center"
+        className="w-12 max-[600px]:w-5 text-center"
       />
-      
+
       {/* Plus Button */}
-      <Button 
-        type="default" 
+      <Button
+        type="default"
         size="small"
         icon={<PlusOutlined />}
         onClick={() => onChange(value < max ? value + 1 : max)}

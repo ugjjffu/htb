@@ -23,10 +23,10 @@ const CityGrid: React.FC<CityGridProps> = ({ onSelectCity, selectedCity }) => {
     const [hoveredCity, setHoveredCity] = useState<City | null>(null);
     return (
         // The custom class 'city-grid' handles the rectangular layout
-        <section className="city-grid">
+        <section className="  grid grid-cols-5 max-[600px]:grid-cols-2 pl-[3px]">
             {cityList.map((city) => (
                 <span
-                    className={`w-26.3 h-8 border ${hoveredCity === city ? style : "border-white"}`}
+                    className={`w-26.3 max-[600px]:w-20 h-8 border ${hoveredCity === city ? style : "border-white"}`}
                     key={city}
                     onClick={() => onSelectCity(city)}
                     onMouseEnter={() => setHoveredCity(city)}

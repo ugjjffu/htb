@@ -56,7 +56,13 @@ const HotelSelectedPopupRender: () => React.ReactElement = () => {
     const handleCitySelect = useReservation().handleCitySelect;
     const selectedCity = useReservation().selectedCity;
     return (
-        <div className="city-dropdown-popup">
+        <div className="
+  bg-white 
+  rounded-lg 
+  shadow-[0_6px_16px_0_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12),0_9px_28px_8px_rgba(0,0,0,0.05)] 
+  min-w-[200px]
+"
+        >
             <div className="font-semibold bg-gray-200">
                 <div className="p-2">popular city</div>
             </div>
@@ -256,18 +262,20 @@ const TopArea: React.FC<TopAreaProps> = () => {
                         max-lg:border-b 
                         min-lg:w-40 min-lg:border-r min-lg:border-dashed min-lg:border-gray-300">
                                 <span className="inline-block text-base">目的/酒店名称</span>
-                                <div className={` mb-0.5 ${openCityOptions ? 'border-b-3' : ''}`}>
-                                    <Dropdown
-                                        autoAdjustOverflow={false}
-                                        trigger={['click']}
-                                        open={openCityOptions}
-                                        // Replace setOpenCityOptions with handler
-                                        onOpenChange={handleOpenCityOptionsChange}
-                                        popupRender={() => <HotelSelectedPopupRender />}
-                                    >
+                                <Dropdown
+                                    autoAdjustOverflow={false}
+                                    placement='bottom'
+                                    trigger={['click']}
+                                    open={openCityOptions}
+                                    // Replace setOpenCityOptions with handler
+                                    onOpenChange={handleOpenCityOptionsChange}
+                                    popupRender={() => <HotelSelectedPopupRender />}
+                                >
+                                    <div className={` mb-0.5 ${openCityOptions ? 'border-b-3' : ''}`}>
+
                                         <button aria-haspopup="dialog">{selectedCity}</button>
-                                    </Dropdown>
-                                </div>
+                                    </div>
+                                </Dropdown>
                             </div>
                             {/* <div className="h-8 w-px bg-gray-400 h-12"></div> */}
                             {/* Check-In Dropdown */}
@@ -275,38 +283,40 @@ const TopArea: React.FC<TopAreaProps> = () => {
                         max-lg:border-b
                         min-lg:border-r min-lg:border-dashed min-lg:border-gray-300">
                                 <span className="inline-block text-base">入住</span>
-                                <div className="">
-                                    <Dropdown
-                                        autoAdjustOverflow={false}
-                                        placement='bottomLeft'
-                                        trigger={['click']}
-                                        open={openCalendarOfCheckIn}
-                                        // Replace setOpenCalendarOfCheckIn with handler
-                                        onOpenChange={handleOpenCheckInChange}
-                                        popupRender={() => <CheckInCalendar></CheckInCalendar>}
-                                    >
+                                <Dropdown
+                                    autoAdjustOverflow={false}
+                                    placement='bottom'
+                                    trigger={['click']}
+                                    open={openCalendarOfCheckIn}
+                                    // Replace setOpenCalendarOfCheckIn with handler
+                                    onOpenChange={handleOpenCheckInChange}
+                                    popupRender={() => <CheckInCalendar></CheckInCalendar>}
+                                >
+                                    <div className="">
+
                                         <button id="check-in-btn" aria-haspopup="dialog" type='button'>{selectedCheckInValue ? dayjs(selectedCheckInValue).format('YYYY-MM-DD') : dayjs(panelValueOfCheckIn).format('YYYY-MM-DD')}</button>
-                                    </Dropdown>
-                                </div>
+                                    </div>
+                                </Dropdown>
                             </div>
                             {/* <div className="w-8 ml-2 mr-2">1</div> */}
                             {/* Check-Out Dropdown */}
                             <div className="h-18 pl-[10px] flex flex-col justify-center col-span-1">
                                 <span className="inline-block text-base">退房</span>
-                                <div className="">
-                                    <Dropdown
-                                        autoAdjustOverflow={false}
-                                        placement="bottomRight"
-                                        trigger={['click']}
-                                        open={openCalendarOfCheckOut}
-                                        // Replace setOpenCalendarOfCheckOut with handler
-                                        onOpenChange={handleOpenCheckOutChange}
-                                        popupRender={() => <CheckOutCalendar></CheckOutCalendar>}
-                                    // getPopupContainer={() =>document.body }
-                                    >
+                                <Dropdown
+                                    autoAdjustOverflow={false}
+                                    placement="bottom"
+                                    trigger={['click']}
+                                    open={openCalendarOfCheckOut}
+                                    // Replace setOpenCalendarOfCheckOut with handler
+                                    onOpenChange={handleOpenCheckOutChange}
+                                    popupRender={() => <CheckOutCalendar></CheckOutCalendar>}
+                                // getPopupContainer={() =>document.body }
+                                >
+                                    <div className="">
                                         <button className=''>{selectedCheckOutValue ? dayjs(selectedCheckOutValue).format('YYYY-MM-DD') : dayjs(panelValueOfCheckOut).format('YYYY-MM-DD')}</button>
-                                    </Dropdown>
-                                </div>
+                                    </div>
+                                </Dropdown>
+
                             </div>
                         </div>
                         <div
@@ -324,7 +334,6 @@ const TopArea: React.FC<TopAreaProps> = () => {
                         max-lg:border-b
                         min-lg:border-r min-lg:border-dashed min-lg:border-gray-300">
                                 <span className="inline-block text-base mt-2.5">房间及住客</span>
-                                <div className="flex flex-row items-center">
                                     <CountDropDown
                                         open={open}
                                         setOpen={(value: boolean) => setOpenState(dispatch, value)}
@@ -335,7 +344,6 @@ const TopArea: React.FC<TopAreaProps> = () => {
                                         rooms={rooms}
                                         setRooms={(value: number) => setRoomsState(dispatch, value)}
                                     />
-                                </div>
                             </div>
                             {/* <div className="h-8 w-px bg-gray-400 h-12"></div> */}
                             {/* Hotel Level Dropdown */}
@@ -448,7 +456,7 @@ const TopArea: React.FC<TopAreaProps> = () => {
                         <SliderComercial></SliderComercial>
                     </div>
                     {/* Component 2 (The New Content, placed vertically below the slider) */}
-                    <div className="p-4 bg-yellow-100 rounded-lg shadow-md mt-auto mb-4">
+                    <div className="p-4 bg-yellow-100 rounded-lg shadow-md mt-auto mb-4 max-[900px]:hidden">
                         <h3 className="text-lg font-semibold text-yellow-800">Welcome to ticket booker</h3>
                         <p className="text-sm text-yellow-700">enjoy your journey</p>
                     </div>

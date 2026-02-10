@@ -62,6 +62,7 @@ const LevelSelectorDropdown: React.FC<Props> = ({ open, setOpen, level, setLevel
 
   return (
     <Dropdown
+      placement='bottom'
       autoAdjustOverflow={false}
       // Control the visibility manually
       open={open}

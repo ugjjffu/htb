@@ -34,7 +34,7 @@ const AntdCalendar: React.FC<CalendarProps> = ({
   };
 
   return (
-    <div className="bg-gray-50 shadow-xl rounded-lg w-[376px] mx-auto border border-gray-200">
+    <div className="bg-gray-50 shadow-xl rounded-lg w-[376px] max-[700px]:w-[300px] mx-auto border border-gray-200">
       <Alert
         message={
           <span className="font-semibold text-gray-700">
